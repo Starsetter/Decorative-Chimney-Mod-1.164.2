@@ -1,0 +1,62 @@
+package DecorativeChimney.Items;
+
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+
+public class ItemBlockChimneyHollow extends ItemBlock
+{
+
+	public ItemBlockChimneyHollow(int id)
+	{
+		super(id);
+		setMaxDamage(0);
+		setHasSubtypes(true);
+		setUnlocalizedName("blockChimneyHollowBricks");
+	}
+	
+	public int getMetadata(int metadata)
+	{
+		return metadata;
+	}
+
+    public String getUnlocalizedName(ItemStack itemStack)
+    {
+        switch (itemStack.getItemDamage())
+        {
+            case 0:
+                return getUnlocalizedName() + ".blackmarble";
+            case 1:
+                return getUnlocalizedName() + ".graymarble";
+            case 2:
+                return getUnlocalizedName() + ".whitemarble";
+            case 3:
+                return getUnlocalizedName() + ".blackbrick";
+            case 4:
+                return getUnlocalizedName() + ".smallblackbrick";
+            case 5:
+                return getUnlocalizedName() + ".stonebrick";
+            case 6:
+                return getUnlocalizedName() + ".smallstonebrick";
+            case 7:
+                return getUnlocalizedName() + ".stone";
+            case 8:
+                return getUnlocalizedName() + ".cobblestone";
+            case 9:
+                return getUnlocalizedName() + ".whitebrick";
+            case 10:
+                return getUnlocalizedName() + ".smallwhitebrick";
+            case 11:
+                return getUnlocalizedName() + ".netherbrick";
+            case 12:
+                return getUnlocalizedName() + ".brick";
+            case 13:
+                return getUnlocalizedName() + ".emerald";
+            case 14:
+                return getUnlocalizedName() + ".gold";
+            case 15:
+                return getUnlocalizedName() + ".diamond";
+            default:
+                return getUnlocalizedName() + ".blackmarble";
+        }
+    }
+}
