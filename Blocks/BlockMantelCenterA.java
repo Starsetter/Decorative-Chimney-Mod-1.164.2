@@ -58,13 +58,13 @@ public class BlockMantelCenterA extends Block
     private static final String[] blockMantelCenterANames =
 		{ 
     		"BlackMarble", "BlackMarble", "BlackMarble", "BlackMarble", "BlackMarble", "BlackMarble", "BlackMarble", "BlackMarble",
-    		"Stone", "Stone", "Stone", "Stone", "WoodPlank", "WoodPlank", "WoodPlank", "WoodPlank", "WoodPlank"
+    		"Stone", "Stone", "Stone", "Stone", "OakPlank", "OakPlank", "OakPlank", "OakPlank"
 		};
 
     private static final String[] blockManteCenterASecondaryNames =
 		{ 
 			"WhiteMarble", "WhiteMarble", "WhiteMarble", "WhiteMarble", "GrayMarble", "GrayMarble", "GrayMarble", "GrayMarble",
-    		"Stone", "Stone", "Stone", "Stone", "WoodPlank", "WoodPlank", "WoodPlank", "WoodPlank", "WoodPlank"
+    		"Stone", "Stone", "Stone", "Stone", "OakPlank", "OakPlank", "OakPlank", "OakPlank"
 		};
 
     @SideOnly(Side.CLIENT)

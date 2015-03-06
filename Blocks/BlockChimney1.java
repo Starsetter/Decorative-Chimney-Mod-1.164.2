@@ -42,8 +42,11 @@ public class BlockChimney1 extends BlockContainer
 
     private static final String[] blockChimneyBricksNames =
 		{ 
-			"BlackMarble", "GrayMarble", "WhiteMarble", "BlackLargeBrick", "BlackSmallBrick", "StoneLargeBrick", "StoneSmallBrick", "Stone",
-			"CobbleStone", "WhiteLargeBrick", "WhiteSmallBrick", "NetherBrick", "Brick", "Emerald", "Gold", "Diamond"
+			"WhiteMarble", "WhiteMarble", "WhiteMarble", "Clay",
+			"GrayMarble", "GrayMarble", "GrayMarble", "Stone",
+			"BlackMarble", "BlackMarble", "BlackMarble", "CobbleStone",
+			"OakPlank", "Emerald", "Gold", "Diamond",
+			"SmoothSandStone"
 		};
 
     @SideOnly(Side.CLIENT)
@@ -155,12 +158,12 @@ public class BlockChimney1 extends BlockContainer
         world.spawnParticle("largesmoke", f, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
     }
 
-    public boolean getBlocksMovement(IBlockAccess iBlockAccess, int x, int y, int z)
+    public boolean getBlocksMovement(IBlockAccess iblockAccess, int x, int y, int z)
     {
         return false;
     }
     
-    public void setBlockBoundsBasedOnState(IBlockAccess iBlockAccess, int x, int y, int z)
+    public void setBlockBoundsBasedOnState(IBlockAccess iblockAccess, int x, int y, int z)
     {
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
     }

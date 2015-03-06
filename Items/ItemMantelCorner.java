@@ -25,8 +25,10 @@ import net.minecraft.world.World;
 public class ItemMantelCorner extends Item
 {
 	public static Icon[] IconMantelCornerArray;
-	public static String[] IconMantelCornerNames = {"stone","stonebrick","dirt","brick","bedrock","sand","gravel","coal_block","iron_block","gold_block",
-		"lapis_block","diamond_block"};
+	public static String[] IconMantelCornerNames =
+	{
+		"WhiteMarble", "WhiteMarble", "GrayMarble", "GrayMarble", "BlackMarble", "BlackMarble", "Stone", "WoodPlank", "CobbleStone", "Emerald", "Gold", "Diamond"
+	};
 
 	public ItemMantelCorner(int ID)
 	{
@@ -34,7 +36,7 @@ public class ItemMantelCorner extends Item
 		setMaxDamage(0);
 		setHasSubtypes(true);
 		setUnlocalizedName("itemMantelCorner1");
-    	setCreativeTab(CreativeTabs.tabTools);
+    	setCreativeTab(DecorativeChimneyCore.tabChimney);
 	}
 
 	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List)

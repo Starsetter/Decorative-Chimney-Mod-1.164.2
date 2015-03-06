@@ -1,5 +1,8 @@
 package DecorativeChimney.TileEntityRenders;
 
+import DecorativeChimney.Models.ModelChimney1;
+import DecorativeChimney.TileEntities.TileEntityChimney1;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
@@ -9,10 +12,6 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-
-import DecorativeChimney.Models.ModelChimney1;
-import DecorativeChimney.TileEntities.TileEntityChimney1;
-
 
 public class TileEntityChimney1Render extends TileEntitySpecialRenderer
 {
@@ -36,6 +35,7 @@ public class TileEntityChimney1Render extends TileEntitySpecialRenderer
 		switch (damage) // the good part. get's your block multiple textures
 		{
 			case 0:
+			default:
 				tileEntityRenderer.renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1W.png")); // bindTextureByName + the path to your image. for the block that you gave damage number 0
 				break;
 			case 1:
@@ -85,8 +85,6 @@ public class TileEntityChimney1Render extends TileEntitySpecialRenderer
 				break;
 			case 16:
 				tileEntityRenderer.renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1SSS.png"));
-				break;
-			default:
 				break;
 		}
 		

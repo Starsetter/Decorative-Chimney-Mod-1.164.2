@@ -1,30 +1,29 @@
 package DecorativeChimney.Blocks;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import DecorativeChimney.CommonProxy;
-import DecorativeChimney.DecorativeChimneyCore;
-import DecorativeChimney.TileEntities.TileEntityChimney2;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+
+import DecorativeChimney.DecorativeChimneyCore;
+import DecorativeChimney.Items.ItemChimney2;
+import DecorativeChimney.TileEntities.TileEntityChimney2;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
 
 public class BlockChimney2 extends BlockContainer
 {
@@ -32,129 +31,100 @@ public class BlockChimney2 extends BlockContainer
 	public BlockChimney2(int id, Class class1)
 	{
 		super(id, Material.rock);
-		anEntityClass = class1;
-		setHardness(5.0F);
+    	setHardness(5.0F);
     	setResistance(1.0F);
     	setStepSound(Block.soundStoneFootstep);
     	setUnlocalizedName("blockChimney2");
-    	setCreativeTab(DecorativeChimneyCore.tabChimney);
 	}
 
     @SideOnly(Side.CLIENT)
-	public void getSubBlocks(int i, CreativeTabs creativetabs, List list)
-    {
-		list.add(new ItemStack(this, 1, 0));
-		list.add(new ItemStack(this, 1, 4));
-		list.add(new ItemStack(this, 1, 8));
-		list.add(new ItemStack(this, 1, 12));
-    }
+    private Icon[] icons;
 
-    @SideOnly(Side.CLIENT)
-    private static Icon[] icons;
-
-    @SideOnly(Side.CLIENT)
-    private static Icon[] icons2;
-
-    private static final String[] blockChimneyBottomNames =
+    private static final String[] blockChimneyBricksNames =
 		{ 
-    		"WhiteMarble", "WhiteMarble", "WhiteMarble", "WhiteMarble", "WhiteMarble", "WhiteMarble", "WhiteMarble", "WhiteMarble", 
-    		"WhiteMarble", "WhiteMarble", "WhiteMarble", "WhiteMarble", "WhiteMarble", "WhiteMarble", "WhiteMarble", "WhiteMarble", 
-		};
-
-    private static final String[] blockChimneyTopNames =
-		{ 
-		"WhiteMarble", "WhiteMarble", "WhiteMarble", "WhiteMarble", "GrayMarble", "GrayMarble", "GrayMarble", "GrayMarble", 
-		"BlackMarble", "BlackMarble", "BlackMarble", "BlackMarble", "Clay", "Clay", "Clay", "Clay", 
+			"BlackMarble", "GrayMarble", "WhiteMarble", "BlackLargeBrick", "BlackSmallBrick", "StoneLargeBrick", "StoneSmallBrick", "Stone",
+			"CobbleStone", "WhiteLargeBrick", "WhiteSmallBrick", "NetherBrick", "Brick", "Emerald", "Gold", "Diamond"
 		};
 
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister iconregister)
+    public void registerIcons(IconRegister iconRegister)
     {
     	icons = new Icon[16];
-    	icons2 = new Icon[16];
     	
-    	for(int i = 0; i < 16; i++)
+    	for(int i = 0; i < icons.length; i++)
     	{
-    		ItemStack blockChimney1Stack = new ItemStack(DecorativeChimneyCore.blockChimney1, 64, i);
+    		ItemStack blockChimneyBricksStack = new ItemStack(DecorativeChimneyCore.blockChimney3, 64, i);
 
-    		icons[i] = iconregister.registerIcon(DecorativeChimneyCore.modid + ":" + blockChimneyBottomNames[blockChimney1Stack.getItemDamage()]);
-
-    		icons2[i] = iconregister.registerIcon(DecorativeChimneyCore.modid + ":" + blockChimneyTopNames[blockChimney1Stack.getItemDamage()]);
-
+    		icons[i] = iconRegister.registerIcon(DecorativeChimneyCore.modid + ":" + blockChimneyBricksNames[blockChimneyBricksStack.getItemDamage()]);
     	}
     }
-    
+    	
     @SideOnly(Side.CLIENT)
-    public Icon getIcon(int i, int meta)
+    public Icon getIcon(int side, int metaData)
     {
-    	if(i == 6)
-    	{
-    		return icons[meta];
-    
-    	}
-
-    	if(i == 7)
-    	{
-    		return icons2[meta];
-    	}
-    	return icons[meta];
-    }
-    
-    public static void triggerSmoke(World world, int i, int j, int k, Random random)
-    {
-		int l = world.getBlockMetadata(i, j, k);
-    	float f = (float)i + 0.25F; //Location Width
-		float f1 = (float)j + 0.8125F + (random.nextFloat() * 6F) / 10F; //Location Height
-		float f2 = (float)k + 0.5F; //Location Length
-		float f4 = random.nextFloat() * 0.6F - 0.3F;
-		float f5 = (float)i + 0.75F; //Location 2 Width
-		float f6 = (float)k + 0.5F; //Location 2 Length
-        if (l == 0 || l == 2 || l == 4 || l == 6 || l == 8 || l == 10 || l == 12 || l == 14)
-        {
-        	f = (float)i + 0.25F; //Location Width
-    		f2 = (float)k + 0.5F; //Location Length
-    		f5 = (float)i + 0.75F; //Location 2 Width
-    		f6 = (float)k + 0.5F; //Location 2 Length
-    		world.spawnParticle("smoke", f, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-    		world.spawnParticle("smoke", f, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-    		world.spawnParticle("largesmoke", f, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-    		world.spawnParticle("largesmoke", f, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-    		world.spawnParticle("smoke", f5, f1, f6 + f4, 0.0D, 0.0D, 0.0D);
-    		world.spawnParticle("smoke", f5, f1, f6 + f4, 0.0D, 0.0D, 0.0D);
-			world.spawnParticle("largesmoke", f5, f1, f6 + f4, 0.0D, 0.0D, 0.0D);
-			world.spawnParticle("largesmoke", f5, f1, f6 + f4, 0.0D, 0.0D, 0.0D);
-        }
-        else
-        {
-        	f = (float)i + 0.5F; //Location Width
-    		f2 = (float)k + 0.25F; //Location Length
-    		f5 = (float)i + .5F; //Location 2 Width
-    		f6 = (float)k + 0.75F; //Location 2 Length
-    		world.spawnParticle("smoke", f, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-    		world.spawnParticle("smoke", f, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-    		world.spawnParticle("largesmoke", f, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-    		world.spawnParticle("largesmoke", f, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-    		world.spawnParticle("smoke", f5, f1, f6 + f4, 0.0D, 0.0D, 0.0D);
-    		world.spawnParticle("smoke", f5, f1, f6 + f4, 0.0D, 0.0D, 0.0D);
-			world.spawnParticle("largesmoke", f5, f1, f6 + f4, 0.0D, 0.0D, 0.0D);
-			world.spawnParticle("largesmoke", f5, f1, f6 + f4, 0.0D, 0.0D, 0.0D);
-        }
-    }	
-
-	public int idDropped(int i, Random par2Random, int j)
-	{
-		return blockID;
-	}
-
-    public int damageDropped(int metadata)
-    {
-    	return metadata / 4;
+    	return icons[metaData];
     }
 
-	public int quantityDropped(Random random)
-	{
-		return 1;
-	}
+    public void onBlockHarvested(World world, int x, int y, int z, int metaData, EntityPlayer entityPlayer)
+    {
+        if (entityPlayer.capabilities.isCreativeMode)
+        {
+            metaData |= 8;
+            world.setBlockMetadataWithNotify(x, y, z, metaData, 4);
+        }
+
+        dropBlockAsItem(world, x, y, z, metaData, 0);
+
+        super.onBlockHarvested(world, x, y, z, metaData, entityPlayer);
+    }
+
+    public void breakBlock(World world, int x, int y, int z, int id, int metaData)
+    {
+        super.breakBlock(world, x, y, z, id, metaData);
+    }
+
+    public ArrayList<ItemStack> getBlockDropped(World world, int x, int y, int z, int metadata, int fortune)
+    {
+        ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
+        if ((metadata & 8) == 0)
+        {
+            ItemStack itemstack = new ItemStack(DecorativeChimneyCore.itemChimney2.itemID, 1, this.getDamageValue(world, x, y, z));
+            TileEntityChimney2 tileEntityChimney2 = (TileEntityChimney2)world.getBlockTileEntity(x, y, z);
+
+            if (tileEntityChimney2 == null)
+            {
+                return drops;
+            }
+            drops.add(itemstack);
+        }
+        return drops;
+    }
+
+    public int idPicked(World world, int x, int y, int z)
+    {
+        return DecorativeChimneyCore.itemChimney2.itemID;
+    }
+
+    public int idDropped(int metaData, Random random)
+    {
+        return DecorativeChimneyCore.itemChimney2.itemID;
+    }
+
+    public int getDamageValue(World world, int x, int y, int z)
+    {
+        TileEntity tileentity = world.getBlockTileEntity(x, y, z);
+        return tileentity != null && tileentity instanceof TileEntityChimney2 ? ((TileEntityChimney2)tileentity).getChimneyType() : super.getDamageValue(world, x, y, z);
+    }
+
+    public int damageDropped(int damage)
+    {
+        return damage;
+    }
+
+    public int quantityDropped(Random random)
+    {
+        return 1;
+    }
 
 	public boolean isOpaqueCube()
 	{
@@ -171,34 +141,46 @@ public class BlockChimney2 extends BlockContainer
 		return DecorativeChimneyCore.blockChimney2ModelID;
 	}
 
-	//Rotates based on players direction
-	
-	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLivingBase entityliving, ItemStack itemstack)
-	{
-		int l = MathHelper.floor_double((double)((entityliving.rotationYaw * 4F) / 360F) + 0.5D) & 3;
-		world.setBlockMetadataWithNotify(i, j, k, world.getBlockMetadata(i, j, k) + l, 2);
-	}
-	
-	public TileEntity createNewTileEntity(World world)
+    public static void triggerSmoke(World world, int x, int y, int z, Random random)
+    {
+        float f = (float)x + 0.5F; //Location Width
+        float f1 = (float)y + 0.8125F + (random.nextFloat() * 6F) / 10F; //Location Height
+        float f2 = (float)z + 0.5F; //Location Length
+        float f3 = random.nextFloat() * 0.6F - 0.3F;
+        world.spawnParticle("smoke", f, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
+        world.spawnParticle("smoke", f, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
+        world.spawnParticle("smoke", f, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
+        world.spawnParticle("largesmoke", f, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
+        world.spawnParticle("largesmoke", f, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
+        world.spawnParticle("largesmoke", f, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
+    }
+
+    public boolean getBlocksMovement(IBlockAccess iblockAccess, int x, int y, int z)
+    {
+        return false;
+    }
+    
+    public void setBlockBoundsBasedOnState(IBlockAccess iblockAccess, int x, int y, int z)
+    {
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
+    }
+    
+    public void addCollidingBlockToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity)
+    {
+        this.setBlockBoundsBasedOnState(world, x, y, z);
+        super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public String getItemIconName()
+    {
+        return this.getTextureName() + "_" + ItemChimney2.IconNames[0];
+    }
+
+    public TileEntity createNewTileEntity(World world)
 	{
 		return new TileEntityChimney2();
 	}
 
 	private Class anEntityClass;
-	
-    public boolean getBlocksMovement(IBlockAccess iblockaccess, int i, int j, int k)
-    {
-        return false;
-    }
-    
-    public void setBlockBoundsBasedOnState(IBlockAccess iBlockAccess, int i, int j, int k)
-    {
-        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
-    }
-    
-    public void addCollidingBlockToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity)
-    {
-        this.setBlockBoundsBasedOnState(par1World, par2, par3, par4);
-        super.addCollisionBoxesToList(par1World, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
-    }
 }

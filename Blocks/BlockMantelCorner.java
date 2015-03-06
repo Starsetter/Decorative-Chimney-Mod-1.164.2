@@ -52,28 +52,45 @@ public class BlockMantelCorner extends BlockContainer
     @SideOnly(Side.CLIENT)
     private static Icon[] icons2;
 
-    private static final String[] blockMantelCornerNames =
+    private static final String[] blockMantelSideNames =
 		{ 
-    		"WhiteMarble", "WhiteMarble", "GrayMarble", "GrayMarble", "BlackMarble", "BlackMarble", "Stone", "WoodPlank", "CobbleStone", "Emerald", "Gold", "Diamond"
+    		"WhiteMarble", "WhiteMarble", "GrayMarble", "GrayMarble", "BlackMarble", "BlackMarble", "Stone", "OakPlank", "CobbleStone", "Emerald", "Gold", "Diamond"
+		};
+
+    private static final String[] blockManteSideSecondaryNames =
+		{ 
+			"GrayMarble", "BlackMarble", "WhiteMarble", "BlackMarble", "WhiteMarble", "GrayMarble", "Stone", "OakPlank", "CobbleStone", "Emerald", "Gold", "Diamond"
 		};
 
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister iconregister)
+    public void registerIcons(IconRegister iconRegister)
     {
     	icons = new Icon[12];
+    	icons2 = new Icon[12];
     	
     	for(int i = 0; i < 12; i++)
     	{
-    		ItemStack blockMantelCornerStack = new ItemStack(DecorativeChimneyCore.blockMantelCorner, 64, i);
+    		ItemStack blockMantelSideStack = new ItemStack(DecorativeChimneyCore.blockMantelSide, 64, i);
 
-    		icons[i] = iconregister.registerIcon(DecorativeChimneyCore.modid + ":" + blockMantelCornerNames[blockMantelCornerStack.getItemDamage()]);
+    		icons[i] = iconRegister.registerIcon(DecorativeChimneyCore.modid + ":" + blockMantelSideNames[blockMantelSideStack.getItemDamage()]);
+
+    		icons2[i] = iconRegister.registerIcon(DecorativeChimneyCore.modid + ":" + blockManteSideSecondaryNames[blockMantelSideStack.getItemDamage()]);
     	}
     }
     
     @SideOnly(Side.CLIENT)
-    public Icon getIcon(int i, int meta)
+    public Icon getIcon(int i, int metaData)
     {
-    	return DecorativeChimneyCore.blockMantelSide.getBlockTextureFromSide(i);
+    	if(i == 6)
+    	{
+    		return icons[metaData];
+    
+    	}
+    	if(i == 7)
+    	{
+    		return icons2[metaData];
+    	}
+    	return icons[metaData];
     }
     
     public void onBlockHarvested(World world, int x, int y, int z, int metaData, EntityPlayer entityPlayer)
@@ -309,7 +326,7 @@ public class BlockMantelCorner extends BlockContainer
         		{
         			if (var9)
         			{
-        				renderblocks.overrideBlockTexture = DecorativeChimneyCore.blockMantelSide.getIcon(6, tileEntityClothColor.getColor1());
+        				renderblocks.overrideBlockTexture = DecorativeChimneyCore.blockMantelCorner.getIcon(6, tileEntityClothColor.getColor1());
         				renderblocks.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 		        		renderblocks.renderStandardBlock(block, i, j, k);
         				renderblocks.clearOverrideBlockTexture();
@@ -342,58 +359,9 @@ public class BlockMantelCorner extends BlockContainer
     						par10a = 0.3125F;
     						par10b = 1.0F;
     					}
-
-        				renderblocks.overrideBlockTexture = DecorativeChimneyCore.blockMantelSide.getIcon(6, tileEntityClothColor.getColor1());
-    				//Top
-        				renderblocks.setRenderBounds(0.0F, par1a, 0.0F, 1.0F, par1b, 1.0F);
-        				renderblocks.renderStandardBlock(block, i, j, k);
-
-		        	//Level 2
-        				renderblocks.setRenderBounds(par1, par2a, par2, par3, par2b, par4);
-        				renderblocks.renderStandardBlock(block, i, j, k);
-		        	//Level 3
-        				renderblocks.setRenderBounds(par5, par3a, par6, par7, par3b, par8);
-        				renderblocks.renderStandardBlock(block, i, j, k);
-		        	//Level 4
-        				renderblocks.setRenderBounds(par9, par4a, par10, par11, par4b, par12);
-        				renderblocks.renderStandardBlock(block, i, j, k);
-
-		        	//Level 5
-        				renderblocks.setRenderBounds(0.25F, par5a, 0.25F, 0.75F, par5b, 0.75F);
-        				renderblocks.renderStandardBlock(block, i, j, k);
-		        	//Level 6
-		        	//Pole 1
-        				renderblocks.setRenderBounds(0.25F, par6a, 0.25F, 0.375F, par6b, 0.375F);
-        				renderblocks.renderStandardBlock(block, i, j, k);
-		        	//Pole 2
-        				renderblocks.setRenderBounds(0.625F, par6a, 0.25F, 0.75F, par6b, 0.375F);
-        				renderblocks.renderStandardBlock(block, i, j, k);
-		        	//Pole 3
-        				renderblocks.setRenderBounds(0.625F, par6a, 0.625F, 0.75F, par6b, 0.75F);
-        				renderblocks.renderStandardBlock(block, i, j, k);
-		        	//Pole 4
-        				renderblocks.setRenderBounds(0.25F, par6a, 0.625F, 0.375F, par6b, 0.75F);
-        				renderblocks.renderStandardBlock(block, i, j, k);
-		        	//Level 7
-        				renderblocks.setRenderBounds(0.25F, par7a, 0.25F, 0.75F, par7b, 0.75F);
-        				renderblocks.renderStandardBlock(block, i, j, k);
-		        	//Level 8
-        				renderblocks.setRenderBounds(0.1875F, par8a, 0.1875F, 0.8125F, par8b, 0.8125F);
-        				renderblocks.renderStandardBlock(block, i, j, k);
-		        	//Level 9
-        				renderblocks.setRenderBounds(0.25F, par9a, 0.25F, 0.75F, par9b, 0.75F);
-        				renderblocks.renderStandardBlock(block, i, j, k);
-		        	//Core
-        				renderblocks.clearOverrideBlockTexture();
-
-        				renderblocks.overrideBlockTexture = DecorativeChimneyCore.blockMantelSide.getIcon(7, tileEntityClothColor.getColor2());
-        				renderblocks.setRenderBounds(0.3115F, par6a, 0.3115F, 0.6885F, par6b, 0.6885F);
-        				renderblocks.renderStandardBlock(block, i, j, k);
-        				renderblocks.clearOverrideBlockTexture();
-
         				if (var5 || var6 || var7 || var8)
         				{
-            				renderblocks.overrideBlockTexture = DecorativeChimneyCore.blockMantelSide.getIcon(6, tileEntityClothColor.getColor1());
+            				renderblocks.overrideBlockTexture = DecorativeChimneyCore.blockMantelCorner.getIcon(6, tileEntityClothColor.getColor1());
         					renderblocks.setRenderBounds(par13, par10a, par14, par15, par10b, par16);
         					renderblocks.renderStandardBlock(block, i, j, k);
 
@@ -525,6 +493,53 @@ public class BlockMantelCorner extends BlockContainer
 		        }
         	}
         }
+		renderblocks.overrideBlockTexture = DecorativeChimneyCore.blockMantelCorner.getIcon(6, tileEntityClothColor.getColor1());
+	//Top
+		renderblocks.setRenderBounds(0.0F, par1a, 0.0F, 1.0F, par1b, 1.0F);
+		renderblocks.renderStandardBlock(block, i, j, k);
+
+	//Level 2
+		renderblocks.setRenderBounds(par1, par2a, par2, par3, par2b, par4);
+		renderblocks.renderStandardBlock(block, i, j, k);
+	//Level 3
+		renderblocks.setRenderBounds(par5, par3a, par6, par7, par3b, par8);
+		renderblocks.renderStandardBlock(block, i, j, k);
+	//Level 4
+		renderblocks.setRenderBounds(par9, par4a, par10, par11, par4b, par12);
+		renderblocks.renderStandardBlock(block, i, j, k);
+
+	//Level 5
+		renderblocks.setRenderBounds(0.25F, par5a, 0.25F, 0.75F, par5b, 0.75F);
+		renderblocks.renderStandardBlock(block, i, j, k);
+	//Level 6
+	//Pole 1
+		renderblocks.setRenderBounds(0.25F, par6a, 0.25F, 0.375F, par6b, 0.375F);
+		renderblocks.renderStandardBlock(block, i, j, k);
+	//Pole 2
+		renderblocks.setRenderBounds(0.625F, par6a, 0.25F, 0.75F, par6b, 0.375F);
+		renderblocks.renderStandardBlock(block, i, j, k);
+	//Pole 3
+		renderblocks.setRenderBounds(0.625F, par6a, 0.625F, 0.75F, par6b, 0.75F);
+		renderblocks.renderStandardBlock(block, i, j, k);
+	//Pole 4
+		renderblocks.setRenderBounds(0.25F, par6a, 0.625F, 0.375F, par6b, 0.75F);
+		renderblocks.renderStandardBlock(block, i, j, k);
+	//Level 7
+		renderblocks.setRenderBounds(0.25F, par7a, 0.25F, 0.75F, par7b, 0.75F);
+		renderblocks.renderStandardBlock(block, i, j, k);
+	//Level 8
+		renderblocks.setRenderBounds(0.1875F, par8a, 0.1875F, 0.8125F, par8b, 0.8125F);
+		renderblocks.renderStandardBlock(block, i, j, k);
+	//Level 9
+		renderblocks.setRenderBounds(0.25F, par9a, 0.25F, 0.75F, par9b, 0.75F);
+		renderblocks.renderStandardBlock(block, i, j, k);
+		renderblocks.clearOverrideBlockTexture();
+	//Core
+		renderblocks.overrideBlockTexture = DecorativeChimneyCore.blockMantelCorner.getIcon(7, tileEntityClothColor.getColor2());
+		renderblocks.setRenderBounds(0.3115F, par6a, 0.3115F, 0.6885F, par6b, 0.6885F);
+		renderblocks.renderStandardBlock(block, i, j, k);
+		renderblocks.clearOverrideBlockTexture();
+
        	block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
        	return true;
 	}

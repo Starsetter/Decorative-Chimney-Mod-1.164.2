@@ -20,9 +20,9 @@ public class TileEntityLogsRender extends TileEntitySpecialRenderer
 		model = new ModelLogs();
 	}
 	
-	public void renderAModelAt(TileEntityLogs tile, double d, double d1, double d2, float f)
+	public void renderAModelAt(TileEntityLogs tileEntityLogs, double d, double d1, double d2, float f)
 	{
-		int i = tile.worldObj.getBlockMetadata(tile.xCoord, tile.yCoord, tile.zCoord);
+		int i = tileEntityLogs.worldObj.getBlockMetadata(tileEntityLogs.xCoord, tileEntityLogs.yCoord, tileEntityLogs.zCoord);
 		int j = 0;
 
 		if (i == 0)
@@ -54,9 +54,9 @@ public class TileEntityLogsRender extends TileEntitySpecialRenderer
 		GL11.glPopMatrix(); //end
 	}
 
-	public void renderTileEntityAt(TileEntity tileentity, double d, double d1, double d2, float f)
+	public void renderTileEntityAt(TileEntity tileEntity, double d, double d1, double d2, float f)
 	{
-		renderAModelAt((TileEntityLogs) tileentity, d, d1, d2, f); //where to render
+		renderAModelAt((TileEntityLogs) tileEntity, d, d1, d2, f); //where to render
 	}
 
 	private ModelLogs model;

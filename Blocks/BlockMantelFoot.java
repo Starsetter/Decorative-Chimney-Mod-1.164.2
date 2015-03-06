@@ -57,12 +57,12 @@ public class BlockMantelFoot extends Block
 
     private static final String[] blockMantelFootNames =
 		{ 
-    		"WhiteMarble", "WhiteMarble", "GrayMarble", "GrayMarble", "BlackMarble", "BlackMarble", "Stone", "WoodPlank", "CobbleStone", "Emerald", "Gold", "Diamond"
+    		"WhiteMarble", "WhiteMarble", "GrayMarble", "GrayMarble", "BlackMarble", "BlackMarble", "Stone", "OakPlank", "CobbleStone", "Emerald", "Gold", "Diamond"
 		};
 
     private static final String[] blockManteFootSecondaryNames =
 		{ 
-			"GrayMarble", "BlackMarble", "WhiteMarble", "BlackMarble", "WhiteMarble", "GrayMarble", "Stone", "WoodPlank", "CobbleStone", "Emerald", "Gold", "Diamond"
+			"GrayMarble", "BlackMarble", "WhiteMarble", "BlackMarble", "WhiteMarble", "GrayMarble", "Stone", "OakPlank", "CobbleStone", "Emerald", "Gold", "Diamond"
 		};
 
     @SideOnly(Side.CLIENT)

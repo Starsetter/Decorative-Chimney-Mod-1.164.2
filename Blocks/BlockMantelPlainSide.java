@@ -55,7 +55,7 @@ public class BlockMantelPlainSide extends Block
     private static final String[] blockMantelPlainSideNames =
 		{ 
 			"BlackMarble", "GrayMarble", "WhiteMarble", "BlackLargeBrick", "BlackSmallBrick", "StoneLargeBrick", "StoneSmallBrick", "Stone",
-			"CobbleStone", "WhiteLargeBrick", "WhiteSmallBrick", "WoodPlank", "Brick", "Emerald", "Gold", "Diamond"
+			"CobbleStone", "WhiteLargeBrick", "WhiteSmallBrick", "OakPlank", "Brick", "Emerald", "Gold", "Diamond"
 		};
 
     @SideOnly(Side.CLIENT)

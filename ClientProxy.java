@@ -2,7 +2,9 @@ package DecorativeChimney;
 
 import DecorativeChimney.InventoryRenders.InvBlock;
 import DecorativeChimney.InventoryRenders.ItemChimney1Render;
+import DecorativeChimney.InventoryRenders.ItemChimney2Render;
 import DecorativeChimney.TileEntityRenders.*;
+
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -13,6 +15,8 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void registerRenderers()
 	{
+//        MinecraftForgeClient.registerItemRenderer(DecorativeChimneyCore.itemChimney1.itemID, (IItemRenderer) new ItemChimney1Render());
+//        MinecraftForgeClient.registerItemRenderer(DecorativeChimneyCore.itemChimney2.itemID, (IItemRenderer) new ItemChimney2Render());
 	}
 
 	public void preInitLoading()
@@ -41,7 +45,6 @@ public class ClientProxy extends CommonProxy
         
 		DecorativeChimneyCore.blockChimney1ModelID = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(DecorativeChimneyCore.blockChimney1ModelID, new InvBlock());
-//        MinecraftForgeClient.registerItemRenderer(DecorativeChimneyCore.itemChimney1.itemID, (IItemRenderer) new ItemChimney1Render());
         
 		DecorativeChimneyCore.blockChimney2ModelID = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(DecorativeChimneyCore.blockChimney2ModelID, new InvBlock());

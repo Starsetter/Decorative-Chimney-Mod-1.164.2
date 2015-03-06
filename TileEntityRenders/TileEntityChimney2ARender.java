@@ -25,8 +25,8 @@ public class TileEntityChimney2ARender extends TileEntitySpecialRenderer
 		int i = tile.worldObj.getBlockMetadata(tile.xCoord, tile.yCoord, tile.zCoord); //this is for rotation
 		int j = 0;
 
-		if(i == 1 || i == 3 || i == 5 || i == 7 || i == 9 || i == 11 || i == 13 || i == 15)
-		{
+    	for(j = 1; j < 16; j = j + 2)
+    	{
 			j = 90;
 		}
 
