@@ -25,8 +25,14 @@ import net.minecraft.world.World;
 public class ItemChimney2 extends Item
 {
 	public static Icon[] IconArray;
-	public static String[] IconNames = {"stone","stonebrick","dirt","brick","bedrock","sand","gravel","coal_block","iron_block","gold_block",
-		"lapis_block","diamond_block","redstone_Block","planks_birch","planks_jungle","planks_oak","planks_spruce"};
+	public static String[] IconNames =
+	{
+    	"BlackMarble", "yBlackMarble", "zBlackMarble", "GrayMarble",
+    	"yGrayMarble", "zGrayMarble", "WhiteMarble", "yWhiteMarble",
+    	"zWhiteMarble", "NetherClay", "Clay", "Stone",
+    	"CobbleStone", "Emerald", "Gold", "Diamond",
+    	"SmoothSandStone"
+	};
 
 	public ItemChimney2(int id)
 	{
@@ -119,6 +125,8 @@ public class ItemChimney2 extends Item
         }
         else
         {
+        	int i1 = MathHelper.floor_double((double)(entityPlayer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+
         	if (metaData == 1)
         	{
         		++y;
@@ -133,8 +141,7 @@ public class ItemChimney2 extends Item
         	}
         	else
         	{
-        		world.setBlock(x, y, z, DecorativeChimneyCore.blockChimney2.blockID, metaData, 2);
-                int i1 = MathHelper.floor_double((double)(entityPlayer.rotationYaw * 16.0F / 360.0F) + 0.5D) & 15;
+        		world.setBlock(x, y, z, DecorativeChimneyCore.blockChimney2.blockID, i1, 2);
 
         		TileEntity tileentity = world.getBlockTileEntity(x, y, z);
         		if(tileentity != null && tileentity instanceof TileEntityChimney2)

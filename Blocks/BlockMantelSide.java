@@ -57,12 +57,16 @@ public class BlockMantelSide extends Block
 
     private static final String[] blockMantelSideNames =
 		{ 
-    		"WhiteMarble", "WhiteMarble", "GrayMarble", "GrayMarble", "BlackMarble", "BlackMarble", "Stone", "OakPlank", "CobbleStone", "Emerald", "Gold", "Diamond"
+    		"BlackMarble", "BlackMarble", "GrayMarble", "GrayMarble",
+    		"WhiteMarble", "WhiteMarble", "OakPlank", "Stone",
+    		"CobbleStone", "Emerald", "Gold", "Diamond"
 		};
 
     private static final String[] blockManteSideSecondaryNames =
 		{ 
-			"GrayMarble", "BlackMarble", "WhiteMarble", "BlackMarble", "WhiteMarble", "GrayMarble", "Stone", "OakPlank", "CobbleStone", "Emerald", "Gold", "Diamond"
+    		"GrayMarble", "WhiteMarble", "BlackMarble", "WhiteMarble",
+    		"BlackMarble", "GrayMarble", "OakPlank", "Stone",
+    		"CobbleStone", "Emerald", "Gold", "Diamond"
 		};
 
     @SideOnly(Side.CLIENT)

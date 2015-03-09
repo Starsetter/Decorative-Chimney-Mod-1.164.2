@@ -150,8 +150,7 @@ public class BlockChimneyHollow extends Block
         {
             BlockChimney1.triggerSmoke(world, i, j + 1, k, random);
         }
-        else if (var1 == DecorativeChimneyCore.blockChimney2.blockID || var1 == DecorativeChimneyCore.blockChimney2A.blockID ||
-        		var1 == DecorativeChimneyCore.blockChimney2B.blockID || var1 == DecorativeChimneyCore.blockChimney2C.blockID)
+        else if (var1 == DecorativeChimneyCore.blockChimney2.blockID)
         {
             BlockChimney2.triggerSmoke(world, i, j + 1, k, random);
         }

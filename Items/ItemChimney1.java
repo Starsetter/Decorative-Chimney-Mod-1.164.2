@@ -25,11 +25,11 @@ public class ItemChimney1 extends Item
 	public static Icon[] IconArray;
 	public static String[] IconNames =
 	{
-		"WhiteMarble", "WhiteMarble", "WhiteMarble", "Clay",
-		"GrayMarble", "GrayMarble", "GrayMarble", "Stone",
-		"BlackMarble", "BlackMarble", "BlackMarble", "CobbleStone",
-		"OakPlank", "Emerald", "Gold", "Diamond",
-		"SmoothSandStone"
+    	"BlackMarble", "yBlackMarble", "zBlackMarble", "GrayMarble",
+    	"yGrayMarble", "zGrayMarble", "WhiteMarble", "yWhiteMarble",
+    	"zWhiteMarble", "NetherClay", "Clay", "Stone",
+    	"CobbleStone", "Emerald", "Gold", "Diamond",
+    	"SmoothSandStone"
 	};
 	
 	public ItemChimney1(int id)

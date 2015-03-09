@@ -27,7 +27,9 @@ public class ItemMantelCorner extends Item
 	public static Icon[] IconMantelCornerArray;
 	public static String[] IconMantelCornerNames =
 	{
-		"WhiteMarble", "WhiteMarble", "GrayMarble", "GrayMarble", "BlackMarble", "BlackMarble", "Stone", "WoodPlank", "CobbleStone", "Emerald", "Gold", "Diamond"
+		"MantelCornerBG", "MantelCornerBW", "MantelCornerGB", "MantelCornerGW",
+		"MantelCornerWB", "MantelCornerWG", "OakPlank", "Stone",
+		"CobbleStone", "Emerald", "Gold", "Diamond"
 	};
 
 	public ItemMantelCorner(int ID)

@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Random;
 
 import DecorativeChimney.Blocks.*;
+import DecorativeChimney.InventoryRenders.ItemChimney1Render;
+import DecorativeChimney.InventoryRenders.ItemChimney2Render;
 import DecorativeChimney.Items.*;
 import DecorativeChimney.Models.*;
 import DecorativeChimney.TileEntities.*;
@@ -56,9 +58,6 @@ public class DecorativeChimneyCore
 	static int blockMantelFootBlockID;
 	static int blockChimney1BlockID;
 	static int blockChimney2BlockID;
-	static int blockChimney2ABlockID;
-	static int blockChimney2BBlockID;
-	static int blockChimney2CBlockID;
 	static int blockChimney3BlockID;
 
 	static int itemChimney1BlockID;
@@ -87,15 +86,15 @@ public class DecorativeChimneyCore
 	public static Block blockMantelFoot;
 	public static Block blockChimney1;
 	public static Block blockChimney2;
-	public static Block blockChimney2A;
-	public static Block blockChimney2B;
-	public static Block blockChimney2C;
 	public static Block blockChimney3;
 	
 	public static Item itemChimney1;
 	public static Item itemChimney2;
-//	public static Item itemChimney3 = new ItemChimney1(itemChimney3BlockID);
+//	public static Item itemChimney3;
 	public static Item itemMantelCorner;
+	
+	private final static ItemChimney1Render itemChimney1Render = new ItemChimney1Render();
+	private final static ItemChimney2Render itemChimney2Render = new ItemChimney2Render();
 	
 	private static final String[] blockChimneyBricksNames =
 		{ 
@@ -112,8 +111,9 @@ public class DecorativeChimneyCore
 
 	private static final String[] blockMantelTypeNames =
 		{ 
-			"White with Gray Marble", "White with Black Marble", "Gray with White Marble", "Gray with Black Marble",
-			"Black with White Marble", "Black with Gray Marble", "Stone", "Wood", "Cobblestone", "Emerald", "Gold", "Diamond"
+			"Black with Gray Marble", "Black with White Marble", "Gray with Black Marble", "Gray with White Marble",
+			"White with Black Marble", "White with Gray Marble", "Wood", "Stone",
+			"Cobblestone", "Emerald", "Gold", "Diamond"
 		};
 	
 	private static final String[] blockMantel2TypeNames =
@@ -125,10 +125,11 @@ public class DecorativeChimneyCore
 
 	private static final String[] blockChimneyTypeNames =
 		{ 
-			"White Marble", "White with Gray Marble", "White with Black Marble", "White Marble with Brick",
-			"Gray with White Marble", "Gray Marble", "Gray with Black Marble", "Stone",
-			"Black with White Marble", "Black with Gray Marble", "Black Marble", "Cobblestone",
-			 "Wood", "Emerald", "Gold", "Diamond", "Smooth Sand Stone"
+			"Black Marble", "Black with Gray Marble", "Black with White Marble", "Gray with Black Marble",
+			"Gray Marble", "Gray with White Marble", "White with Black Marble", "White with Gray Marble",
+			"White Marble", "Black Marble with Netherbrick", "White Marble with Brick", "Stone",
+			"Cobblestone", "Emerald", "Gold", "Diamond",
+			"Smooth Sand Stone"
 		};
 
 	@SidedProxy(clientSide="DecorativeChimney.ClientProxy", serverSide="DecorativeChimney.CommonProxy")
@@ -137,40 +138,15 @@ public class DecorativeChimneyCore
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		Configuration configuration = new Configuration(event.getSuggestedConfigurationFile());
-
-		configuration.load();
-
-		blockChimneyHolllowBricksBlockID = configuration.getBlock("Block", "Hollow Chimney Brick Blocks", 2001).getInt();
-		blockLogsOnBlockID = configuration.getBlock("Block", "Logs On", 2002).getInt();
-		blockLogsOffBlockID = configuration.getBlock("Block", "Logs Off", 2003).getInt();
-		blockMantelCornerBlockID = configuration.getBlock("Block", "Mantel Corner", 2004).getInt();
-		blockMantelCenterBlockID = configuration.getBlock("Block", "Mantel Center", 2006).getInt();
-		blockMantelCenterABlockID = configuration.getBlock("Block", "Mantel Center A", 2007).getInt();
-		blockMantelSideBlockID = configuration.getBlock("Block", "Mantel Side", 2008).getInt();
-		blockMantelPlainSideBlockID = configuration.getBlock("Block", "Mantel Plain Side", 2009).getInt();
-		blockMantelFootBlockID = configuration.getBlock("Block", "Mantel Footer", 2010).getInt();
-		blockChimney1BlockID = configuration.getBlock("Block", "Chimney Style 1", 2011).getInt();
-		blockChimney2BlockID = configuration.getBlock("Block", "Chimney Style 2", 2012).getInt();
-		blockChimney2ABlockID = configuration.getBlock("Block", "Chimney Style 2A", 2013).getInt();
-		blockChimney2BBlockID = configuration.getBlock("Block", "Chimney Style 2B", 2014).getInt();
-		blockChimney2CBlockID = configuration.getBlock("Block", "Chimney Style 2C", 2015).getInt();
-		blockChimney3BlockID = configuration.getBlock("Block", "Chimney Style 3", 2016).getInt();
-
-		itemChimney1BlockID = configuration.getItem("Item", "Chimney Style 1", 20015).getInt();
-		itemChimney2BlockID = configuration.getItem("Item", "Chimney Style 2", 20016).getInt();
-//		itemChimney3BlockID = configuration.getItem("Item", "Chimney Style 3", 20017).getInt();
-		itemMantelCornerBlockID = configuration.getItem("Item", "Mantel Corner", 20018).getInt();
-
-		configuration.save();
+		proxy.registerRenderers();
+		proxy.initRenders();
+		
+		ConfigurationHandler.configurationInit(event.getSuggestedConfigurationFile());
 	}
 
 	@EventHandler
 	public void Init(FMLInitializationEvent event)
 	{
-		proxy.registerRenderers();
-		proxy.initRendering();
-		
 		blockChimneyHollowBricks = new BlockChimneyHollow(blockChimneyHolllowBricksBlockID);
 		blockMantelCorner = new BlockMantelCorner(blockMantelCornerBlockID, TileEntityColor.class);
 		blockMantelCenter = new BlockMantelCenter(blockMantelCenterBlockID);
@@ -182,14 +158,11 @@ public class DecorativeChimneyCore
         blockLogsOff = new BlockLogsOff(blockLogsOffBlockID, TileEntityLogs.class);
 		blockChimney1 = new BlockChimney1(blockChimney1BlockID, TileEntityChimney1.class);
 		blockChimney2 = new BlockChimney2(blockChimney2BlockID, TileEntityChimney2.class);
-		blockChimney2A = new BlockChimney2A(blockChimney2ABlockID, TileEntityChimney2A.class);
-		blockChimney2B = new BlockChimney2B(blockChimney2BBlockID, TileEntityChimney2B.class);
-		blockChimney2C = new BlockChimney2C(blockChimney2CBlockID, TileEntityChimney2C.class);
         blockChimney3 = new BlockChimney3(blockChimney3BlockID, TileEntityChimney3.class);
         
         itemChimney1 = new ItemChimney1(itemChimney1BlockID);
-        itemChimney2 = new ItemChimney1(itemChimney2BlockID);
-    	itemMantelCorner = new ItemMantelCorner(itemMantelCornerBlockID);
+        itemChimney2 = new ItemChimney2(itemChimney2BlockID);
+        itemMantelCorner = new ItemMantelCorner(itemMantelCornerBlockID);
 
 		LanguageRegistry.instance().addStringLocalization("itemGroup.tabChimney", "en_US", "Fireplaces and Chimneys");
 
@@ -204,9 +177,6 @@ public class DecorativeChimneyCore
 		GameRegistry.registerBlock(blockMantelFoot, ItemBlockMantelFoot.class, "Mantel Foot");
 		GameRegistry.registerBlock(blockChimney1, "Chimney Style 1");
 		GameRegistry.registerBlock(blockChimney2, "Chimney Style 2");
-		GameRegistry.registerBlock(blockChimney2A, ItemBlockChimney2A.class, "Chimney Style 2A");
-		GameRegistry.registerBlock(blockChimney2B, ItemBlockChimney2B.class, "Chimney Style 2B");
-		GameRegistry.registerBlock(blockChimney2C, ItemBlockChimney2C.class, "Chimney Style 2C");
 		GameRegistry.registerBlock(blockChimney3, ItemBlockChimney3.class, "Chimney Style 3");
 
 		GameRegistry.registerItem(itemChimney1, "Item Chimney Style 1");
@@ -218,11 +188,11 @@ public class DecorativeChimneyCore
 		GameRegistry.registerTileEntity(TileEntityLogs.class, "LogsOff");
 		GameRegistry.registerTileEntity(TileEntityChimney1.class, "Chimney1");
 		GameRegistry.registerTileEntity(TileEntityChimney2.class, "Chimney2");
-		GameRegistry.registerTileEntity(TileEntityChimney2A.class, "Chimney2A");
-		GameRegistry.registerTileEntity(TileEntityChimney2B.class, "Chimney2B");
-		GameRegistry.registerTileEntity(TileEntityChimney2C.class, "Chimney2C");
 		GameRegistry.registerTileEntity(TileEntityChimney3.class, "Chimney3");
 		GameRegistry.registerTileEntity(TileEntityColor.class, "Color");
+		
+		MinecraftForgeClient.registerItemRenderer(itemChimney1.itemID, itemChimney1Render);
+		MinecraftForgeClient.registerItemRenderer(itemChimney2.itemID, itemChimney2Render);
 
 //Tool Tip Name
 
@@ -235,10 +205,6 @@ public class DecorativeChimneyCore
 			ItemStack itemChimneyStyle2Stack = new ItemStack(itemChimney2, 64, i);
 
 			LanguageRegistry.addName(itemChimneyStyle2Stack, blockChimneyTypeNames[itemChimneyStyle2Stack.getItemDamage()] + " Chimney");
-
-//			ItemStack itemChimneyStyle3Stack = new ItemStack(itemChimney3, 64, i);
-
-//			LanguageRegistry.addName(itemChimneyStyle3Stack, blockChimneyTypeNames[itemChimneyStyle3Stack.getItemDamage()] + " Chimney");
 		}
 			
 		for (int i = 0; i < 16; i++)
@@ -284,26 +250,6 @@ public class DecorativeChimneyCore
 		LanguageRegistry.addName(new ItemStack(blockMantelCenterA, 64, 8), "Stone Mantel Center");
 		LanguageRegistry.addName(new ItemStack(blockMantelCenterA, 64, 12), "Wood Mantel Center");
 
-/*		LanguageRegistry.addName(new ItemStack(blockChimney2, 64, 0), "White Marble Chimney Style 2");
-		LanguageRegistry.addName(new ItemStack(blockChimney2, 64, 4), "White with Gray Marble Chimney Style 2");
-		LanguageRegistry.addName(new ItemStack(blockChimney2, 64, 8), "White with Black Marble Chimney Style 2");
-		LanguageRegistry.addName(new ItemStack(blockChimney2, 64, 12), "White Marble with Brick Chimney Style 2");
-
-		LanguageRegistry.addName(new ItemStack(blockChimney2A, 64, 0), "Gray with White Marble Chimney Style 2");
-		LanguageRegistry.addName(new ItemStack(blockChimney2A, 64, 4), "Gray Marble Chimney Style 2");
-		LanguageRegistry.addName(new ItemStack(blockChimney2A, 64, 8), "Gray with Black Marble Chimney Style 2");
-		LanguageRegistry.addName(new ItemStack(blockChimney2A, 64, 12), "Stone Chimney Style 2");
-
-		LanguageRegistry.addName(new ItemStack(blockChimney2B, 64, 0), "Black with White Marble Chimney Style 2");
-		LanguageRegistry.addName(new ItemStack(blockChimney2B, 64, 4), "Black with Gray Marble Chimney Style 2");
-		LanguageRegistry.addName(new ItemStack(blockChimney2B, 64, 8), "Black Marble Chimney Style 2");
-		LanguageRegistry.addName(new ItemStack(blockChimney2B, 64, 12), "Cobblestone Chimney Style 2");
-
-		LanguageRegistry.addName(new ItemStack(blockChimney2C, 64, 0), "Wood Chimney Style 2");
-		LanguageRegistry.addName(new ItemStack(blockChimney2C, 64, 4), "Emerald Chimney Style 2");
-		LanguageRegistry.addName(new ItemStack(blockChimney2C, 64, 8), "Gold Chimney Style 2");
-		LanguageRegistry.addName(new ItemStack(blockChimney2C, 64, 12), "Diamond Chimney Style 2");
-*/
 //Recipes
 
 		GameRegistry.addRecipe(new ItemStack(blockLogsOff, 4, 7), " L ", "LLL", Character.valueOf('L'), Block.wood);
@@ -325,14 +271,14 @@ public class DecorativeChimneyCore
 		addHollowRecipe(14, Block.planks, Item.ingotGold);
 		addHollowRecipe(15, Block.glass, Item.diamond);
 
-		addMantelCornerRecipe(0, "stoneMarble", "stoneMarbleGray");
-		addMantelCornerRecipe(1, "stoneMarble", "stoneMarbleBlack");
-		addMantelCornerRecipe(2, "stoneMarbleGray", "stoneMarble");
-		addMantelCornerRecipe(3, "stoneMarbleGray", "stoneMarbleBlack");
-		addMantelCornerRecipe(4, "stoneMarbleBlack", "stoneMarble");
-		addMantelCornerRecipe(5, "stoneMarbleBlack", "stoneMarbleGray");
-		addMantelCornerRecipe(6, Block.stone, Item.coal);
-		addMantelCornerRecipe(7, Block.planks, Item.coal);
+		addMantelCornerRecipe(0, "stoneMarbleBlack", "stoneMarbleGray");
+		addMantelCornerRecipe(1, "stoneMarbleBlack", "stoneMarble");
+		addMantelCornerRecipe(2, "stoneMarbleGray", "stoneMarbleBlack");
+		addMantelCornerRecipe(3, "stoneMarbleGray", "stoneMarble");
+		addMantelCornerRecipe(4, "stoneMarble", "stoneMarbleBlack");
+		addMantelCornerRecipe(5, "stoneMarble", "stoneMarbleGray");
+		addMantelCornerRecipe(6, Block.planks, Item.coal);
+		addMantelCornerRecipe(7, Block.stone, Item.coal);
 		addMantelCornerRecipe(8, Block.cobblestone, Item.coal);
 		addMantelCornerRecipe(9, Block.glass, Item.emerald);
 		addMantelCornerRecipe(10, Block.planks, Item.ingotGold);
@@ -364,69 +310,67 @@ public class DecorativeChimneyCore
 		addMantelPlainSideRecipe(14, Block.planks, Item.ingotGold);
 		addMantelPlainSideRecipe(15, Block.glass, Item.diamond);
 		
-		addMantelSideRecipe(0, "stoneMarble", "stoneMarbleGray");
-		addMantelSideRecipe(1, "stoneMarble", "stoneMarbleBlack");
-		addMantelSideRecipe(2, "stoneMarbleGray", "stoneMarble");
-		addMantelSideRecipe(3, "stoneMarbleGray", "stoneMarbleBlack");
-		addMantelSideRecipe(4, "stoneMarbleBlack", "stoneMarble");
-		addMantelSideRecipe(5, "stoneMarbleBlack", "stoneMarbleGray");
-		addMantelSideRecipe(6, Block.stone, Item.coal);
-		addMantelSideRecipe(7, Block.planks, Item.coal);
+		addMantelSideRecipe(0, "stoneMarbleBlack", "stoneMarbleGray");
+		addMantelSideRecipe(1, "stoneMarbleBlack", "stoneMarble");
+		addMantelSideRecipe(2, "stoneMarbleGray", "stoneMarbleBlack");
+		addMantelSideRecipe(3, "stoneMarbleGray", "stoneMarble");
+		addMantelSideRecipe(4, "stoneMarble", "stoneMarbleBlack");
+		addMantelSideRecipe(5, "stoneMarble", "stoneMarbleGray");
+		addMantelSideRecipe(6, Block.planks, Item.coal);
+		addMantelSideRecipe(7, Block.stone, Item.coal);
 		addMantelSideRecipe(8, Block.cobblestone, Item.coal);
 		addMantelSideRecipe(9, Block.glass, Item.emerald);
 		addMantelSideRecipe(10, Block.planks, Item.ingotGold);
 		addMantelSideRecipe(11, Block.glass, Item.diamond);
 		
-		addMantelFootRecipe(0, "stoneMarble", "stoneMarbleGray");
-		addMantelFootRecipe(1, "stoneMarble", "stoneMarbleBlack");
-		addMantelFootRecipe(2, "stoneMarbleGray", "stoneMarble");
-		addMantelFootRecipe(3, "stoneMarbleGray", "stoneMarbleBlack");
-		addMantelFootRecipe(4, "stoneMarbleBlack", "stoneMarble");
-		addMantelFootRecipe(5, "stoneMarbleBlack", "stoneMarbleGray");
-		addMantelFootRecipe(6, Block.stone, Item.coal);
-		addMantelFootRecipe(7, Block.planks, Item.coal);
+		addMantelFootRecipe(0, "stoneMarbleBlack", "stoneMarbleGray");
+		addMantelFootRecipe(1, "stoneMarbleBlack", "stoneMarble");
+		addMantelFootRecipe(2, "stoneMarbleGray", "stoneMarbleBlack");
+		addMantelFootRecipe(3, "stoneMarbleGray", "stoneMarble");
+		addMantelFootRecipe(4, "stoneMarble", "stoneMarbleBlack");
+		addMantelFootRecipe(5, "stoneMarble", "stoneMarbleGray");
+		addMantelFootRecipe(6, Block.planks, Item.coal);
+		addMantelFootRecipe(7, Block.stone, Item.coal);
 		addMantelFootRecipe(8, Block.cobblestone, Item.coal);
 		addMantelFootRecipe(9, Block.glass, Item.emerald);
 		addMantelFootRecipe(10, Block.planks, Item.ingotGold);
 		addMantelFootRecipe(11, Block.glass, Item.diamond);
 		
-		addChimney1Recipe(0, "stoneMarble", "stoneMarble");
-		addChimney1Recipe(1, "stoneMarble", "stoneMarbleGray");
-		addChimney1Recipe(2, "stoneMarble", "stoneMarbleBlack");
-		addChimney1Recipe(3, "stoneMarble", Item.brick);
-		addChimney1Recipe(4, "stoneMarbleGray", "stoneMarble");
-		addChimney1Recipe(5, "stoneMarbleGray", "stoneMarbleGray");
-		addChimney1Recipe(6, "stoneMarbleGray", "stoneMarbleBlack");
-		addChimney1Recipe(7, Block.stone, Item.coal);
-		addChimney1Recipe(8, "stoneMarbleBlack", "stoneMarble");
-		addChimney1Recipe(9, "stoneMarbleBlack", "stoneMarbleGray");
-		addChimney1Recipe(10, "stoneMarbleBlack", "stoneMarbleBlack");
-		addChimney1Recipe(11, Block.cobblestone, Item.coal);
-		addChimney1Recipe(12, Block.planks, Item.coal);
+		addChimney1Recipe(0, "stoneMarbleBlack", "stoneMarbleBlack");
+		addChimney1Recipe(1, "stoneMarbleBlack", "stoneMarbleGray");
+		addChimney1Recipe(2, "stoneMarbleBlack", "stoneMarble");
+		addChimney1Recipe(3, "stoneMarbleGray", "stoneMarbleBlack");
+		addChimney1Recipe(4, "stoneMarbleGray", "stoneMarbleGray");
+		addChimney1Recipe(5, "stoneMarbleGray", "stoneMarble");
+		addChimney1Recipe(6, "stoneMarble", "stoneMarbleBlack");
+		addChimney1Recipe(7, "stoneMarble", "stoneMarbleGray");
+		addChimney1Recipe(8, "stoneMarble", "stoneMarble");
+		addChimney1Recipe(9, "stoneMarbleBlack", Item.netherrackBrick);
+		addChimney1Recipe(10, "stoneMarble", Item.brick);
+		addChimney1Recipe(11, Block.stone, Item.coal);
+		addChimney1Recipe(12, Block.cobblestone, Item.coal);
 		addChimney1Recipe(13, Block.glass, Item.emerald);
 		addChimney1Recipe(14, Block.planks, Item.ingotGold);
 		addChimney1Recipe(15, Block.glass, Item.diamond);
 		addChimney1Recipe(16, new ItemStack(Block.sandStone, 1, 2), Item.coal);
 
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(blockChimney2, 1, 0), "I I", "III",
-				Character.valueOf('I'), "stoneMarble"));
-		addChimney2Recipe(new ItemStack(blockChimney2, 1, 4), "stoneMarble", "stoneMarbleGray");
-		addChimney2Recipe(new ItemStack(blockChimney2, 1, 8), "stoneMarble", "stoneMarbleBlack");
-		addChimney2Recipe(new ItemStack(blockChimney2, 1, 12), "stoneMarble", Item.brick);
-		addChimney2Recipe(new ItemStack(blockChimney2A, 1, 0), "stoneMarbleGray", "stoneMarble");
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(blockChimney2A, 1, 4), "I I", "III",
-				Character.valueOf('I'), "stoneMarbleGray"));
-		addChimney2Recipe(new ItemStack(blockChimney2A, 1, 8), "stoneMarbleGray", "stoneMarbleBlack");
-		addChimney2Recipe(new ItemStack(blockChimney2A, 1, 12), Block.stone, Item.coal);
-		addChimney2Recipe(new ItemStack(blockChimney2B, 1, 0), "stoneMarbleBlack", "stoneMarble");
-		addChimney2Recipe(new ItemStack(blockChimney2B, 1, 4), "stoneMarbleBlack", "stoneMarbleGray");
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(blockChimney2B, 1, 8), "I I", "III",
-				Character.valueOf('I'), "stoneMarbleBlack"));
-		addChimney2Recipe(new ItemStack(blockChimney2B, 1, 12), Block.cobblestone, Item.coal);
-		addChimney2Recipe(new ItemStack(blockChimney2C, 1, 0), Block.planks, Item.coal);
-		addChimney2Recipe(new ItemStack(blockChimney2C, 1, 4), Block.glass, Item.emerald);
-		addChimney2Recipe(new ItemStack(blockChimney2C, 1, 8), Block.planks, Item.ingotGold);
-		addChimney2Recipe(new ItemStack(blockChimney2C, 1, 12), Block.glass, Item.diamond);
+		addChimney2Recipe(0, "stoneMarbleBlack", "stoneMarbleBlack");
+		addChimney2Recipe(1, "stoneMarbleBlack", "stoneMarbleGray");
+		addChimney2Recipe(2, "stoneMarbleBlack", "stoneMarble");
+		addChimney2Recipe(3, "stoneMarbleGray", "stoneMarbleBlack");
+		addChimney2Recipe(4, "stoneMarbleGray", "stoneMarbleGray");
+		addChimney2Recipe(5, "stoneMarbleGray", "stoneMarble");
+		addChimney2Recipe(6, "stoneMarble", "stoneMarbleBlack");
+		addChimney2Recipe(7, "stoneMarble", "stoneMarbleGray");
+		addChimney2Recipe(8, "stoneMarble", "stoneMarble");
+		addChimney2Recipe(9, "stoneMarbleBlack", Item.netherrackBrick);
+		addChimney2Recipe(10, "stoneMarble", Item.brick);
+		addChimney2Recipe(11, Block.stone, Item.coal);
+		addChimney2Recipe(12, Block.cobblestone, Item.coal);
+		addChimney2Recipe(13, Block.glass, Item.emerald);
+		addChimney2Recipe(14, Block.planks, Item.ingotGold);
+		addChimney2Recipe(15, Block.glass, Item.diamond);
+		addChimney2Recipe(16, new ItemStack(Block.sandStone, 1, 2), Item.coal);
 
 		addChimney3Recipe(0, "stoneMarbleBlack", "stoneMarbleBlack");
 		addChimney3Recipe(1, "stoneMarbleGray", "stoneMarbleGray");
@@ -455,7 +399,7 @@ public class DecorativeChimneyCore
 
 	public static void addMantelCornerRecipe(int i, Object obj1, Object obj2)
 	{
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(itemMantelCorner, 2, i), "III", " JI", "  I",
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(itemMantelCorner, 2, i), "III", "IJI", "  I",
 				Character.valueOf('I'), obj1,
 				Character.valueOf('J'), obj2));
 	}
@@ -495,9 +439,9 @@ public class DecorativeChimneyCore
 				Character.valueOf('J'), obj2));
 	}
 
-	public static void addChimney2Recipe(ItemStack itemStack, Object obj1, Object obj2)
+	public static void addChimney2Recipe(int i, Object obj1, Object obj2)
 	{
-		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(itemStack, "IJI", "III",
+		CraftingManager.getInstance().getRecipeList().add(new ShapedOreRecipe(new ItemStack(itemChimney2, 1, i), "IJI", "III",
 				Character.valueOf('I'), obj1,
 				Character.valueOf('J'), obj2));
 	}

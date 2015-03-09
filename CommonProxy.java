@@ -8,7 +8,7 @@ public class CommonProxy
 	{
 	}
 	
-    public void initRendering()
+    public void initRenders()
     {
     }
     

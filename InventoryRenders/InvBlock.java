@@ -5,9 +5,6 @@ import org.lwjgl.opengl.GL11;
 import DecorativeChimney.DecorativeChimneyCore;
 import DecorativeChimney.Blocks.BlockChimney1;
 import DecorativeChimney.Blocks.BlockChimney2;
-import DecorativeChimney.Blocks.BlockChimney2A;
-import DecorativeChimney.Blocks.BlockChimney2B;
-import DecorativeChimney.Blocks.BlockChimney2C;
 import DecorativeChimney.Blocks.BlockChimney3;
 import DecorativeChimney.Blocks.BlockChimneyHollow;
 import DecorativeChimney.Blocks.BlockMantelCenter;
@@ -53,7 +50,7 @@ public class InvBlock implements ISimpleBlockRenderingHandler
             renderBlocks.clearOverrideBlockTexture();
             block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         }
-        if (block.getRenderType() == DecorativeChimneyCore.blockMantelCornerModelID)
+/*        if (block.getRenderType() == DecorativeChimneyCore.blockMantelCornerModelID)
         {
 //1
         	renderBlocks.overrideBlockTexture = block.getIcon(6, metaData);
@@ -99,7 +96,7 @@ public class InvBlock implements ISimpleBlockRenderingHandler
 
             renderBlocks.clearOverrideBlockTexture();
             block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-        }
+        }*/
         if (block.getRenderType() == DecorativeChimneyCore.blockMantelCenterModelID)
         {
 
@@ -208,29 +205,6 @@ public class InvBlock implements ISimpleBlockRenderingHandler
 
             renderBlocks.clearOverrideBlockTexture();
             block.setBlockBounds(0.25F, 0.0F, 0.25F, 0.75F, 1.0F, 0.75F);
-        }
-        if (block instanceof BlockChimney2 || block instanceof BlockChimney2A || block instanceof BlockChimney2B || block instanceof BlockChimney2C)
-        {
-//Base 1
-    		renderBlocks.overrideBlockTexture = block.getIcon(6, metaData);
-    		renderBlocks.setRenderBounds(0.0625F, 0.375F, 0.0625F, 0.9375F, 0.4375F, 0.9375F);
-            renderBlockItem(renderBlocks, block, metaData);
-//Base 2
-            renderBlocks.setRenderBounds(0.0F, 0.3125F, 0.0F, 1.0F, 0.375F, 1.0F);
-            renderBlockItem(renderBlocks, block, metaData);
-//Base 3
-            renderBlocks.setRenderBounds(-0.0625F, 0.125F, -0.0625F, 1.0625F, 0.3125F, 1.0625F);
-            renderBlockItem(renderBlocks, block, metaData);
-//Top 1
-            renderBlocks.overrideBlockTexture = block.getIcon(7, metaData);
-            renderBlocks.setRenderBounds(0.34375F, 0.4375F, 0.125F, 0.65625F, 0.875F, 0.4375F);
-            renderBlockItem(renderBlocks, block, metaData);
-//top 2
-            renderBlocks.setRenderBounds(0.34375F, 0.4375F, 0.5625F, 0.65625F, 0.875F, 0.875F);
-            renderBlockItem(renderBlocks, block, metaData);
-
-            renderBlocks.clearOverrideBlockTexture();
-            block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         }
         if (block instanceof BlockChimney3)
         {

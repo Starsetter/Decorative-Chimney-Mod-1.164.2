@@ -21,43 +21,43 @@ public class ItemChimney2Render implements IItemRenderer
 		{
 			case 0:
 			default:
-				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1W.png")); // bindTextureByName + the path to your image. for the block that you gave damage number 0
+				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1B.png")); // bindTextureByName + the path to your image. for the block that you gave damage number 0
 				break;
 			case 1:
-				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1WG.png")); // and so on and so on
-				break;
-			case 2:
-				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1WB.png"));
-				break;
-			case 3:
-				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1Br.png"));
-				break;
-			case 4:
-				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1GW.png"));
-				break;
-			case 5:
-				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1G.png"));
-				break;
-			case 6:
-				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1GB.png"));
-				break;
-			case 7:
-				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1S.png"));
-				break;
-			case 8:
-				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1BW.png"));
-				break;
-			case 9:
 				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1BG.png"));
 				break;
+			case 2:
+				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1BW.png"));
+				break;
+			case 3:
+				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1GB.png"));
+				break;
+			case 4:
+				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1G.png"));
+				break;
+			case 5:
+				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1GW.png"));
+				break;
+			case 6:
+				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1WB.png"));
+				break;
+			case 7:
+				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1WG.png"));
+				break;
+			case 8:
+				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1W.png"));
+				break;
+			case 9:
+				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1NBr.png"));
+				break;
 			case 10:
-				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1B.png"));
+				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1Br.png"));
 				break;
 			case 11:
-				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1CS.png"));
+				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1S.png"));
 				break;
 			case 12:
-				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1Wo.png"));
+				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1CS.png"));
 				break;
 			case 13:
 				Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("decorativechimney:textures/Chimney1E.png"));
@@ -128,27 +128,6 @@ public class ItemChimney2Render implements IItemRenderer
 				
 				float scale = 1.0F;
 				GL11.glScalef(scale, scale, scale);
-
-		//Base 1
-//		    		renderBlocks.overrideBlockTexture = block.getIcon(6, metadata);
-//		    		renderBlocks.setRenderBounds(0.0625F, 0.375F, 0.0625F, 0.9375F, 0.4375F, 0.9375F);
-//		            renderBlockItem(renderBlocks, block, metadata);
-		//Base 2
-//		            renderBlocks.setRenderBounds(0.0F, 0.3125F, 0.0F, 1.0F, 0.375F, 1.0F);
-//		            renderBlockItem(renderBlocks, block, metadata);
-		//Base 3
-//		            renderBlocks.setRenderBounds(-0.0625F, 0.125F, -0.0625F, 1.0625F, 0.3125F, 1.0625F);
-//		            renderBlockItem(renderBlocks, block, metadata);
-		//Top 1
-//		            renderBlocks.overrideBlockTexture = block.getIcon(7, metadata);
-//		            renderBlocks.setRenderBounds(0.28125F, 0.4375F, 0.28125F, 0.71875F, 0.8125F, 0.71875F);
-//		            renderBlockItem(renderBlocks, block, metadata);
-		//top 2
-//		            renderBlocks.setRenderBounds(0.3125F, 0.8125F, 0.3125F, 0.6875F, 0.875F, 0.6875F);
-//		            renderBlockItem(renderBlocks, block, metadata);
-		            
-//		            renderBlocks.clearOverrideBlockTexture();
-//		            block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 
 				model.render(null, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
 				GL11.glPopMatrix();

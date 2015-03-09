@@ -3,6 +3,8 @@ package DecorativeChimney;
 import DecorativeChimney.InventoryRenders.InvBlock;
 import DecorativeChimney.InventoryRenders.ItemChimney1Render;
 import DecorativeChimney.InventoryRenders.ItemChimney2Render;
+import DecorativeChimney.Models.ModelChimney1;
+import DecorativeChimney.Models.ModelChimney2;
 import DecorativeChimney.TileEntityRenders.*;
 
 import net.minecraftforge.client.IItemRenderer;
@@ -15,15 +17,13 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void registerRenderers()
 	{
-//        MinecraftForgeClient.registerItemRenderer(DecorativeChimneyCore.itemChimney1.itemID, (IItemRenderer) new ItemChimney1Render());
-//        MinecraftForgeClient.registerItemRenderer(DecorativeChimneyCore.itemChimney2.itemID, (IItemRenderer) new ItemChimney2Render());
 	}
 
 	public void preInitLoading()
     {
     }
 
-    public void initRendering()
+    public void initRenders()
     {
 		DecorativeChimneyCore.blockHollowBricksModelID = RenderingRegistry.getNextAvailableRenderId();
         RenderingRegistry.registerBlockHandler(DecorativeChimneyCore.blockHollowBricksModelID, new InvBlock());
@@ -55,9 +55,6 @@ public class ClientProxy extends CommonProxy
         ClientRegistry.bindTileEntitySpecialRenderer(DecorativeChimney.TileEntities.TileEntityLogs.class, new TileEntityLogsRender());
         ClientRegistry.bindTileEntitySpecialRenderer(DecorativeChimney.TileEntities.TileEntityChimney1.class, new TileEntityChimney1Render());
         ClientRegistry.bindTileEntitySpecialRenderer(DecorativeChimney.TileEntities.TileEntityChimney2.class, new TileEntityChimney2Render());
-        ClientRegistry.bindTileEntitySpecialRenderer(DecorativeChimney.TileEntities.TileEntityChimney2A.class, new TileEntityChimney2ARender());
-        ClientRegistry.bindTileEntitySpecialRenderer(DecorativeChimney.TileEntities.TileEntityChimney2B.class, new TileEntityChimney2BRender());
-        ClientRegistry.bindTileEntitySpecialRenderer(DecorativeChimney.TileEntities.TileEntityChimney2C.class, new TileEntityChimney2CRender());
         ClientRegistry.bindTileEntitySpecialRenderer(DecorativeChimney.TileEntities.TileEntityChimney3.class, new TileEntityChimney3Render());
     }	
 }

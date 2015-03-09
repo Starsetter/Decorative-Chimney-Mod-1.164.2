@@ -14,7 +14,7 @@ public class TileEntityColor extends TileEntity
 	public TileEntityColor()
 	{
 		color1 = 0;
-		color2 = 1;
+		color2 = 0;
 	}
 
 	public void setColor(int color)

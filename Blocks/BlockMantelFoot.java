@@ -57,12 +57,16 @@ public class BlockMantelFoot extends Block
 
     private static final String[] blockMantelFootNames =
 		{ 
-    		"WhiteMarble", "WhiteMarble", "GrayMarble", "GrayMarble", "BlackMarble", "BlackMarble", "Stone", "OakPlank", "CobbleStone", "Emerald", "Gold", "Diamond"
+    		"BlackMarble", "BlackMarble", "GrayMarble", "GrayMarble",
+    		"WhiteMarble", "WhiteMarble", "OakPlank", "Stone",
+    		"CobbleStone", "Emerald", "Gold", "Diamond"
 		};
 
     private static final String[] blockManteFootSecondaryNames =
 		{ 
-			"GrayMarble", "BlackMarble", "WhiteMarble", "BlackMarble", "WhiteMarble", "GrayMarble", "Stone", "OakPlank", "CobbleStone", "Emerald", "Gold", "Diamond"
+    		"GrayMarble", "WhiteMarble", "BlackMarble", "WhiteMarble",
+    		"BlackMarble", "GrayMarble", "OakPlank", "Stone",
+			"CobbleStone", "Emerald", "Gold", "Diamond"
 		};
 
     @SideOnly(Side.CLIENT)
@@ -71,7 +75,7 @@ public class BlockMantelFoot extends Block
     	icons = new Icon[12];
     	icons2 = new Icon[12];
     	
-    	for(int i = 0; i < 12; i++)
+    	for(int i = 0; i < blockMantelFootNames.length; i++)
     	{
     		ItemStack blockMantelFootStack = new ItemStack(DecorativeChimneyCore.blockMantelFoot, 64, i);
 
@@ -200,82 +204,79 @@ public class BlockMantelFoot extends Block
         boolean var11 = var6 && var7;
         boolean var12 = var6 && var8;
         
-    	for(int l = 0; l < 12; l = l + 2)
+    	for(int l = 0; l < 12; l = l++)
     	{
-        	for(int m = 1; m < 12; m = m + 2)
-    		  {
-        		if(iblockaccess.getBlockMetadata(i, j, k) == l || iblockaccess.getBlockMetadata(i, j, k) == m)
-        		{
-        		//Top
-        			renderblocks.setRenderBounds(0.25F, 0.625F, 0.25F, 0.75F, 1.0F, 0.75F);
-        			renderblocks.renderStandardBlock(block, i, j, k);
-        		//Level 1
-        			renderblocks.setRenderBounds(0.1875F, 0.5F, 0.1875F, 0.8125F, 0.625F, 0.8125F);
-        			renderblocks.renderStandardBlock(block, i, j, k);
-        		//Level 2
-        		//Pole 1
-        			renderblocks.setRenderBounds(0.1875F, 0.125F, 0.1875F, 0.3125F, 0.5F, 0.3125F);
-        			renderblocks.renderStandardBlock(block, i, j, k);
-        		//Pole 2
-        			renderblocks.setRenderBounds(0.1875F, 0.125F, 0.6875F, 0.3125F, 0.5F, 0.8125F);
-        			renderblocks.renderStandardBlock(block, i, j, k);
-        		//Pole 3
-        			renderblocks.setRenderBounds(0.6875F, 0.125F, 0.1875F, 0.8125F, 0.5F, 0.3125F);
-        			renderblocks.renderStandardBlock(block, i, j, k);
-        		//Pole 4
-        			renderblocks.setRenderBounds(0.6875F, 0.125F, 0.6875F, 0.8125F, 0.5F, 0.8125F);
-        			renderblocks.renderStandardBlock(block, i, j, k);
-        		//Level 3
-        			renderblocks.setRenderBounds(0.1875F, 0.0F, 0.1875F, 0.8125F, 0.125F, 0.8125F);
-        			renderblocks.renderStandardBlock(block, i, j, k);
-        		//Core
-        			renderblocks.overrideBlockTexture = block.getIcon(7, l);
-        			renderblocks.setRenderBounds(0.25F, 0.125F, 0.25F, 0.75F, 0.5F, 0.75F);
-        			renderblocks.renderStandardBlock(block, i, j, k);
-        			renderblocks.clearOverrideBlockTexture();
+    		if(iblockaccess.getBlockMetadata(i, j, k) == l)
+    		{
+    			//Top
+    			renderblocks.setRenderBounds(0.25F, 0.625F, 0.25F, 0.75F, 1.0F, 0.75F);
+    			renderblocks.renderStandardBlock(block, i, j, k);
+    			//Level 1
+    			renderblocks.setRenderBounds(0.1875F, 0.5F, 0.1875F, 0.8125F, 0.625F, 0.8125F);
+    			renderblocks.renderStandardBlock(block, i, j, k);
+    			//Level 2
+    			//Pole 1
+    			renderblocks.setRenderBounds(0.1875F, 0.125F, 0.1875F, 0.3125F, 0.5F, 0.3125F);
+    			renderblocks.renderStandardBlock(block, i, j, k);
+    			//Pole 2
+    			renderblocks.setRenderBounds(0.1875F, 0.125F, 0.6875F, 0.3125F, 0.5F, 0.8125F);
+    			renderblocks.renderStandardBlock(block, i, j, k);
+    			//Pole 3
+    			renderblocks.setRenderBounds(0.6875F, 0.125F, 0.1875F, 0.8125F, 0.5F, 0.3125F);
+    			renderblocks.renderStandardBlock(block, i, j, k);
+    			//Pole 4
+    			renderblocks.setRenderBounds(0.6875F, 0.125F, 0.6875F, 0.8125F, 0.5F, 0.8125F);
+    			renderblocks.renderStandardBlock(block, i, j, k);
+    			//Level 3
+    			renderblocks.setRenderBounds(0.1875F, 0.0F, 0.1875F, 0.8125F, 0.125F, 0.8125F);
+    			renderblocks.renderStandardBlock(block, i, j, k);
+    			//Core
+    			renderblocks.overrideBlockTexture = block.getIcon(7, l);
+    			renderblocks.setRenderBounds(0.25F, 0.125F, 0.25F, 0.75F, 0.5F, 0.75F);
+    			renderblocks.renderStandardBlock(block, i, j, k);
+    			renderblocks.clearOverrideBlockTexture();
 
-        			if (var5)
-        			{
-        				renderblocks.setRenderBounds(0.0F, 0.0F, 0.3125F, 0.25F, 1.0F, 0.6875F);
-        				renderblocks.renderStandardBlock(block, i, j, k);
-        			}
-        			if (var6)
-        			{
-        				renderblocks.setRenderBounds(0.75F, 0.0F, 0.3125F, 1.0F, 1.0F, 0.6875F);
-        				renderblocks.renderStandardBlock(block, i, j, k);
-        			}
-        			if (var7)
-        			{
-        				renderblocks.setRenderBounds(0.3125F, 0.0F, 0.0F, 0.6875F, 1.0F, 0.25F);
-        				renderblocks.renderStandardBlock(block, i, j, k);
-        			}
-        			if (var8)
-        			{
-        				renderblocks.setRenderBounds(0.3125F, 0.0F, 0.75F, 0.6875F, 1.0F, 1.0F);
-        				renderblocks.renderStandardBlock(block, i, j, k);
-        			}
-        			if (var9)
-        			{
-        				renderblocks.setRenderBounds(0.0F, 0.0F, 0.0F, 0.3125F, 1.0F, 0.3125F);
-        				renderblocks.renderStandardBlock(block, i, j, k);
-        			}
-        			if (var10)
-        			{
-        				renderblocks.setRenderBounds(0.0F, 0.0F, 0.6875F, 0.3125F, 1.0F, 1.0F);
-        				renderblocks.renderStandardBlock(block, i, j, k);
-        			}
-        			if (var11)
-        			{
-        				renderblocks.setRenderBounds(0.6875F, 0.0F, 0.0F, 1.0F, 1.0F, 0.3125F);
-        				renderblocks.renderStandardBlock(block, i, j, k);
-        			}
-        			if (var12)
-        			{
-        				renderblocks.setRenderBounds(0.6875F, 0.0F, 0.6875F, 1.0F, 1.0F, 1.0F);
-        				renderblocks.renderStandardBlock(block, i, j, k);
-        			}
-        		}
-	        }
+    			if (var5)
+    			{
+    				renderblocks.setRenderBounds(0.0F, 0.0F, 0.3125F, 0.25F, 1.0F, 0.6875F);
+    				renderblocks.renderStandardBlock(block, i, j, k);
+    			}
+    			if (var6)
+    			{
+    				renderblocks.setRenderBounds(0.75F, 0.0F, 0.3125F, 1.0F, 1.0F, 0.6875F);
+    				renderblocks.renderStandardBlock(block, i, j, k);
+    			}
+    			if (var7)
+    			{
+    				renderblocks.setRenderBounds(0.3125F, 0.0F, 0.0F, 0.6875F, 1.0F, 0.25F);
+    				renderblocks.renderStandardBlock(block, i, j, k);
+    			}
+    			if (var8)
+    			{
+    				renderblocks.setRenderBounds(0.3125F, 0.0F, 0.75F, 0.6875F, 1.0F, 1.0F);
+    				renderblocks.renderStandardBlock(block, i, j, k);
+    			}
+    			if (var9)
+    			{
+    				renderblocks.setRenderBounds(0.0F, 0.0F, 0.0F, 0.3125F, 1.0F, 0.3125F);
+    				renderblocks.renderStandardBlock(block, i, j, k);
+    			}
+    			if (var10)
+    			{
+    				renderblocks.setRenderBounds(0.0F, 0.0F, 0.6875F, 0.3125F, 1.0F, 1.0F);
+    				renderblocks.renderStandardBlock(block, i, j, k);
+    			}
+    			if (var11)
+    			{
+    				renderblocks.setRenderBounds(0.6875F, 0.0F, 0.0F, 1.0F, 1.0F, 0.3125F);
+    				renderblocks.renderStandardBlock(block, i, j, k);
+    			}
+    			if (var12)
+    			{
+    				renderblocks.setRenderBounds(0.6875F, 0.0F, 0.6875F, 1.0F, 1.0F, 1.0F);
+    				renderblocks.renderStandardBlock(block, i, j, k);
+    			}
+    		}
     	}
         renderblocks.clearOverrideBlockTexture();
         block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);

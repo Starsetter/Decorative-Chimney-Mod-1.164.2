@@ -18,8 +18,8 @@ public class TileEntityChimney2 extends TileEntity
     public void writeToNBT(NBTTagCompound nbtTagCompound)
     {
         super.writeToNBT(nbtTagCompound);
-        nbtTagCompound.setInteger("Type", (int)(this.chimneyType & 255));
-        nbtTagCompound.setInteger("Rot", (int)(this.chimneyRotation & 255));
+        nbtTagCompound.setInteger("Type", (int)(this.chimneyType));
+        nbtTagCompound.setInteger("Rot", (int)(this.chimneyRotation));
     }
 
     @Override
@@ -57,9 +57,9 @@ public class TileEntityChimney2 extends TileEntity
         this.chimneyRotation = rotation;
     }
 
-    @SideOnly(Side.CLIENT)
     public int getChimneyRotation()
     {
+//    	System.out.println(chimneyRotation);
         return this.chimneyRotation;
     }
 }

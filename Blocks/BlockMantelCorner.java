@@ -54,12 +54,16 @@ public class BlockMantelCorner extends BlockContainer
 
     private static final String[] blockMantelSideNames =
 		{ 
-    		"WhiteMarble", "WhiteMarble", "GrayMarble", "GrayMarble", "BlackMarble", "BlackMarble", "Stone", "OakPlank", "CobbleStone", "Emerald", "Gold", "Diamond"
+    		"BlackMarble", "BlackMarble", "GrayMarble", "GrayMarble",
+    		"WhiteMarble", "WhiteMarble", "OakPlank", "Stone",
+    		"CobbleStone", "Emerald", "Gold", "Diamond"
 		};
 
     private static final String[] blockManteSideSecondaryNames =
 		{ 
-			"GrayMarble", "BlackMarble", "WhiteMarble", "BlackMarble", "WhiteMarble", "GrayMarble", "Stone", "OakPlank", "CobbleStone", "Emerald", "Gold", "Diamond"
+    		"GrayMarble", "WhiteMarble", "BlackMarble", "WhiteMarble",
+    		"BlackMarble", "GrayMarble", "OakPlank", "Stone",
+			"CobbleStone", "Emerald", "Gold", "Diamond"
 		};
 
     @SideOnly(Side.CLIENT)
@@ -68,7 +72,7 @@ public class BlockMantelCorner extends BlockContainer
     	icons = new Icon[12];
     	icons2 = new Icon[12];
     	
-    	for(int i = 0; i < 12; i++)
+    	for(int i = 0; i < blockMantelSideNames.length; i++)
     	{
     		ItemStack blockMantelSideStack = new ItemStack(DecorativeChimneyCore.blockMantelSide, 64, i);
 

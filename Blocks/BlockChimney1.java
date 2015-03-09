@@ -41,13 +41,13 @@ public class BlockChimney1 extends BlockContainer
     private Icon[] icons;
 
     private static final String[] blockChimneyBricksNames =
-		{ 
-			"WhiteMarble", "WhiteMarble", "WhiteMarble", "Clay",
-			"GrayMarble", "GrayMarble", "GrayMarble", "Stone",
-			"BlackMarble", "BlackMarble", "BlackMarble", "CobbleStone",
-			"OakPlank", "Emerald", "Gold", "Diamond",
-			"SmoothSandStone"
-		};
+    { 
+    	"BlackMarble", "yBlackMarble", "zBlackMarble", "GrayMarble",
+    	"yGrayMarble", "zGrayMarble", "WhiteMarble", "yWhiteMarble",
+    	"zWhiteMarble", "NetherClay", "Clay", "Stone",
+    	"CobbleStone", "Emerald", "Gold", "Diamond",
+    	"SmoothSandStone"
+   	};
 
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister iconRegister)

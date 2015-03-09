@@ -24,21 +24,21 @@ public class ItemBlockMantelFoot extends ItemBlock
         switch (itemStack.getItemDamage())
         {
         	case 0:
-        		return getUnlocalizedName() + ".whitegray";
-        	case 1:
-        		return getUnlocalizedName() + ".whiteblack";
-        	case 2:
-        		return getUnlocalizedName() + ".graywhite";
-        	case 3:
-        		return getUnlocalizedName() + ".grayblack";
-        	case 4:
-        		return getUnlocalizedName() + ".blackwhite";
-        	case 5:
         		return getUnlocalizedName() + ".blackgray";
+        	case 1:
+        		return getUnlocalizedName() + ".blackwhite";
+        	case 2:
+        		return getUnlocalizedName() + ".grayblack";
+        	case 3:
+        		return getUnlocalizedName() + ".graywhite";
+        	case 4:
+        		return getUnlocalizedName() + ".whiteblack";
+        	case 5:
+        		return getUnlocalizedName() + ".whitegray";
         	case 6:
-        		return getUnlocalizedName() + ".stone";
-        	case 7:
         		return getUnlocalizedName() + ".wood";
+        	case 7:
+        		return getUnlocalizedName() + ".stone";
         	case 8:
         		return getUnlocalizedName() + ".cobblestone";
         	case 9:

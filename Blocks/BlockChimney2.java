@@ -16,12 +16,14 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -41,10 +43,13 @@ public class BlockChimney2 extends BlockContainer
     private Icon[] icons;
 
     private static final String[] blockChimneyBricksNames =
-		{ 
-			"BlackMarble", "GrayMarble", "WhiteMarble", "BlackLargeBrick", "BlackSmallBrick", "StoneLargeBrick", "StoneSmallBrick", "Stone",
-			"CobbleStone", "WhiteLargeBrick", "WhiteSmallBrick", "NetherBrick", "Brick", "Emerald", "Gold", "Diamond"
-		};
+	{ 
+    	"BlackMarble", "yBlackMarble", "zBlackMarble", "GrayMarble",
+    	"yGrayMarble", "zGrayMarble", "WhiteMarble", "yWhiteMarble",
+    	"zWhiteMarble", "NetherClay", "Clay", "Stone",
+    	"CobbleStone", "Emerald", "Gold", "Diamond",
+    	"SmoothSandStone"
+	};
 
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister iconRegister)
