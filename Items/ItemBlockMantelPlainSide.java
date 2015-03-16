@@ -14,9 +14,9 @@ public class ItemBlockMantelPlainSide extends ItemBlock
 		setUnlocalizedName("blockMantelPlainSide");
 	}
 	
-	public int getMetadata(int metadata)
+	public int getMetadata(int metaData)
 	{
-		return metadata;
+		return metaData;
 	}
 
     public String getUnlocalizedName(ItemStack itemStack)
@@ -46,7 +46,7 @@ public class ItemBlockMantelPlainSide extends ItemBlock
             case 10:
                 return getUnlocalizedName() + ".smallwhitebrick";
             case 11:
-                return getUnlocalizedName() + ".wood";
+                return getUnlocalizedName() + ".netherbrick";
             case 12:
                 return getUnlocalizedName() + ".brick";
             case 13:

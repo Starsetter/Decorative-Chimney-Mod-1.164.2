@@ -55,22 +55,24 @@ public class BlockMantelCorner extends BlockContainer
     private static final String[] blockMantelSideNames =
 		{ 
     		"BlackMarble", "BlackMarble", "GrayMarble", "GrayMarble",
-    		"WhiteMarble", "WhiteMarble", "OakPlank", "Stone",
-    		"CobbleStone", "Emerald", "Gold", "Diamond"
+    		"WhiteMarble", "WhiteMarble", "Brick", "Stone",
+    		"CobbleStone", "Emerald", "Gold", "Diamond",
+    		"OakPlank", "BirchPlank", "SprucePlank", "JunglePlank"
 		};
 
     private static final String[] blockManteSideSecondaryNames =
 		{ 
     		"GrayMarble", "WhiteMarble", "BlackMarble", "WhiteMarble",
-    		"BlackMarble", "GrayMarble", "OakPlank", "Stone",
-			"CobbleStone", "Emerald", "Gold", "Diamond"
+    		"BlackMarble", "GrayMarble", "Brick", "Stone",
+    		"CobbleStone", "Emerald", "Gold", "Diamond",
+    		"OakPlank", "BirchPlank", "SprucePlank", "JunglePlank"
 		};
 
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister iconRegister)
     {
-    	icons = new Icon[12];
-    	icons2 = new Icon[12];
+    	icons = new Icon[16];
+    	icons2 = new Icon[16];
     	
     	for(int i = 0; i < blockMantelSideNames.length; i++)
     	{
@@ -115,10 +117,10 @@ public class BlockMantelCorner extends BlockContainer
         super.breakBlock(world, x, y, z, id, metaData);
     }
 
-    public ArrayList<ItemStack> getBlockDropped(World world, int x, int y, int z, int metadata, int fortune)
+    public ArrayList<ItemStack> getBlockDropped(World world, int x, int y, int z, int metaData, int fortune)
     {
         ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
-        if ((metadata & 8) == 0)
+        if ((metaData & 8) == 0)
         {
             ItemStack itemstack = new ItemStack(DecorativeChimneyCore.itemMantelCorner.itemID, 1, this.getDamageValue(world, x, y, z));
             TileEntityColor tileEntityColor = (TileEntityColor)world.getBlockTileEntity(x, y, z);
@@ -196,12 +198,12 @@ public class BlockMantelCorner extends BlockContainer
 		return 0;    
     }
     
-    public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, int i, int j, int k)
+    public void setBlockBoundsBasedOnState(IBlockAccess iblockAccess, int x, int y, int z)
     {
-        boolean var5 = BlockMantelCorner.canConnectTo(iblockaccess, i, j, k - 1);
-        boolean var6 = BlockMantelCorner.canConnectTo(iblockaccess, i, j, k + 1);
-        boolean var7 = BlockMantelCorner.canConnectTo(iblockaccess, i - 1, j, k);
-        boolean var8 = BlockMantelCorner.canConnectTo(iblockaccess, i + 1, j, k);
+        boolean var5 = BlockMantelCorner.canConnectTo(iblockAccess, x, y, z - 1);
+        boolean var6 = BlockMantelCorner.canConnectTo(iblockAccess, x, y, z + 1);
+        boolean var7 = BlockMantelCorner.canConnectTo(iblockAccess, x - 1, y, z);
+        boolean var8 = BlockMantelCorner.canConnectTo(iblockAccess, x + 1, y, z);
         float var9 = 0.25F;
         float var10 = 0.75F;
         float var11 = 0.25F;
@@ -227,13 +229,13 @@ public class BlockMantelCorner extends BlockContainer
             var10 = 1.0F;
         }
 
-        setBlockBounds(var9, 0.0F, var11, var10, 1.0F, var12);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    public void addCollidingBlockToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity)
+    public void addCollidingBlockToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity)
     {
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-        super.addCollisionBoxesToList(par1World, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
+        super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
     }
 
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
@@ -254,12 +256,17 @@ public class BlockMantelCorner extends BlockContainer
         return super.collisionRayTrace(world, x, y, z, start, end);
     }
 
-    public static boolean canConnectTo(IBlockAccess iblockaccess, int i, int j, int k)
+    public static boolean canConnectTo(IBlockAccess iblockAccess, int x, int y, int z)
     {
-        int var5 = iblockaccess.getBlockId(i, j, k);
+        int var5 = iblockAccess.getBlockId(x, y, z);
 
-        if (var5 != DecorativeChimneyCore.blockChimneyHollowBricks.blockID && var5 != DecorativeChimneyCore.blockMantelCorner.blockID && var5 != DecorativeChimneyCore.blockMantelCenter.blockID && var5 != DecorativeChimneyCore.blockMantelCenterA.blockID
-        		&& var5 != DecorativeChimneyCore.blockMantelSide.blockID && var5 != DecorativeChimneyCore.blockMantelPlainSide.blockID && var5 != DecorativeChimneyCore.blockMantelFoot.blockID && var5 != Block.fenceGate.blockID)
+        if (var5 != DecorativeChimneyCore.blockChimneyHollowBricks.blockID
+        		&& var5 != DecorativeChimneyCore.blockMantelCorner.blockID
+        		&& var5 != DecorativeChimneyCore.blockMantelCenter.blockID
+        		&& var5 != DecorativeChimneyCore.blockMantelSide.blockID
+        		&& var5 != DecorativeChimneyCore.blockMantelPlainSide.blockID
+        		&& var5 != DecorativeChimneyCore.blockMantelFoot.blockID
+        		&& var5 != Block.fenceGate.blockID)
         {
             Block var6 = Block.blocksList[var5];
             return var6 != null && var6.blockMaterial.isOpaque() && var6.renderAsNormalBlock() ? var6.blockMaterial != Material.pumpkin : false;
@@ -270,15 +277,15 @@ public class BlockMantelCorner extends BlockContainer
         }
     }
 
-    public static boolean renderMantelCorner(Block block, int i, int j, int k, RenderBlocks renderblocks, IBlockAccess iblockaccess)
+    public static boolean renderMantelCorner(Block block, int x, int y, int z, RenderBlocks renderBlocks, IBlockAccess iblockAccess)
     {
-        boolean var5 = canConnectTo(renderblocks.blockAccess, i - 1, j, k);
-        boolean var6 = canConnectTo(renderblocks.blockAccess, i + 1, j, k);
-        boolean var7 = canConnectTo(renderblocks.blockAccess, i, j, k - 1);
-        boolean var8 = canConnectTo(renderblocks.blockAccess, i, j, k + 1);
+        boolean var5 = canConnectTo(renderBlocks.blockAccess, x - 1, y, z);
+        boolean var6 = canConnectTo(renderBlocks.blockAccess, x + 1, y, z);
+        boolean var7 = canConnectTo(renderBlocks.blockAccess, x, y, z - 1);
+        boolean var8 = canConnectTo(renderBlocks.blockAccess, x, y, z + 1);
         boolean var9 = var5 && var6 && var7 && var8;
         
-        TileEntityColor tileEntityClothColor = (TileEntityColor)iblockaccess.getBlockTileEntity(i, j, k);
+        TileEntityColor tileEntityClothColor = (TileEntityColor)iblockAccess.getBlockTileEntity(x, y, z);
 
         float par1 = 0.0625F;
         float par2 = 0.0625F;
@@ -292,14 +299,14 @@ public class BlockMantelCorner extends BlockContainer
         float par10 = 0.1875F;
         float par11 = 0.8125F;
         float par12 = 0.8125F;
-        float par13 = 0.3125F;
-        float par14 = 0.3125F;
-        float par15 = 0.6875F;
-        float par16 = 0.6875F;
-        float par17 = 0.25F;
-        float par18 = 0.25F;
-        float par19 = 0.75F;
-        float par20 = 0.75F;
+        float par13 = 0.25F;
+        float par14 = 0.25F;
+        float par15 = 0.75F;
+        float par16 = 0.75F;
+        float par17 = 0.3125F;
+        float par18 = 0.3125F;
+        float par19 = 0.6875F;
+        float par20 = 0.6875F;
         
         float par1a = 0.9375F;
         float par1b = 1.0F;
@@ -322,26 +329,21 @@ public class BlockMantelCorner extends BlockContainer
         float par10a = 0.0F;
         float par10b = 0.6875F;
         
-    	for(int l = 0; l < 12; l = l + 2)
+    	for(int l = 0; l < blockMantelSideNames.length; l = l + 2)
     	{
-        	for(int m = 1; m < 12; m = m + 2)
+        	for(int m = 1; m < blockMantelSideNames.length; m = m + 2)
     		  {
-        		if(iblockaccess.getBlockMetadata(i, j, k) == l || iblockaccess.getBlockMetadata(i, j, k) == m)
+        		if(iblockAccess.getBlockMetadata(x, y, z) == l || iblockAccess.getBlockMetadata(x, y, z) == m)
         		{
         			if (var9)
         			{
-        				renderblocks.overrideBlockTexture = DecorativeChimneyCore.blockMantelCorner.getIcon(6, tileEntityClothColor.getColor1());
-        				renderblocks.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-		        		renderblocks.renderStandardBlock(block, i, j, k);
-        				renderblocks.clearOverrideBlockTexture();
+        				par1a = 0.0F;
+        				par1b = 1.0F;
         			}
         			else
         			{
-        				int n = l;
-
-    					if(iblockaccess.getBlockMetadata(i, j, k) == m)
+    					if(iblockAccess.getBlockMetadata(x, y, z) == m)
     					{
-    						n = m;
     						par1a = 0.0F;
     						par1b = 0.0625F;
     						par2a = 0.0625F;
@@ -365,14 +367,6 @@ public class BlockMantelCorner extends BlockContainer
     					}
         				if (var5 || var6 || var7 || var8)
         				{
-            				renderblocks.overrideBlockTexture = DecorativeChimneyCore.blockMantelCorner.getIcon(6, tileEntityClothColor.getColor1());
-        					renderblocks.setRenderBounds(par13, par10a, par14, par15, par10b, par16);
-        					renderblocks.renderStandardBlock(block, i, j, k);
-
-        					renderblocks.setRenderBounds(par17, par8a, par18, par19, par8b, par20);
-        					renderblocks.renderStandardBlock(block, i, j, k);
-            				renderblocks.clearOverrideBlockTexture();
-        					
         					if (var5)
         					{
         						par1 = 0.0F;
@@ -497,58 +491,64 @@ public class BlockMantelCorner extends BlockContainer
 		        }
         	}
         }
-		renderblocks.overrideBlockTexture = DecorativeChimneyCore.blockMantelCorner.getIcon(6, tileEntityClothColor.getColor1());
+		renderBlocks.overrideBlockTexture = block.getIcon(6, tileEntityClothColor.getColor1());
 	//Top
-		renderblocks.setRenderBounds(0.0F, par1a, 0.0F, 1.0F, par1b, 1.0F);
-		renderblocks.renderStandardBlock(block, i, j, k);
+		renderBlocks.setRenderBounds(0.0F, par1a, 0.0F, 1.0F, par1b, 1.0F);
+		renderBlocks.renderStandardBlock(block, x, y, z);
 
 	//Level 2
-		renderblocks.setRenderBounds(par1, par2a, par2, par3, par2b, par4);
-		renderblocks.renderStandardBlock(block, i, j, k);
+		renderBlocks.setRenderBounds(par1, par2a, par2, par3, par2b, par4);
+		renderBlocks.renderStandardBlock(block, x, y, z);
 	//Level 3
-		renderblocks.setRenderBounds(par5, par3a, par6, par7, par3b, par8);
-		renderblocks.renderStandardBlock(block, i, j, k);
+		renderBlocks.setRenderBounds(par5, par3a, par6, par7, par3b, par8);
+		renderBlocks.renderStandardBlock(block, x, y, z);
 	//Level 4
-		renderblocks.setRenderBounds(par9, par4a, par10, par11, par4b, par12);
-		renderblocks.renderStandardBlock(block, i, j, k);
+		renderBlocks.setRenderBounds(par9, par4a, par10, par11, par4b, par12);
+		renderBlocks.renderStandardBlock(block, x, y, z);
 
 	//Level 5
-		renderblocks.setRenderBounds(0.25F, par5a, 0.25F, 0.75F, par5b, 0.75F);
-		renderblocks.renderStandardBlock(block, i, j, k);
+		renderBlocks.setRenderBounds(0.25F, par5a, 0.25F, 0.75F, par5b, 0.75F);
+		renderBlocks.renderStandardBlock(block, x, y, z);
 	//Level 6
 	//Pole 1
-		renderblocks.setRenderBounds(0.25F, par6a, 0.25F, 0.375F, par6b, 0.375F);
-		renderblocks.renderStandardBlock(block, i, j, k);
+		renderBlocks.setRenderBounds(0.25F, par6a, 0.25F, 0.375F, par6b, 0.375F);
+		renderBlocks.renderStandardBlock(block, x, y, z);
 	//Pole 2
-		renderblocks.setRenderBounds(0.625F, par6a, 0.25F, 0.75F, par6b, 0.375F);
-		renderblocks.renderStandardBlock(block, i, j, k);
+		renderBlocks.setRenderBounds(0.625F, par6a, 0.25F, 0.75F, par6b, 0.375F);
+		renderBlocks.renderStandardBlock(block, x, y, z);
 	//Pole 3
-		renderblocks.setRenderBounds(0.625F, par6a, 0.625F, 0.75F, par6b, 0.75F);
-		renderblocks.renderStandardBlock(block, i, j, k);
+		renderBlocks.setRenderBounds(0.625F, par6a, 0.625F, 0.75F, par6b, 0.75F);
+		renderBlocks.renderStandardBlock(block, x, y, z);
 	//Pole 4
-		renderblocks.setRenderBounds(0.25F, par6a, 0.625F, 0.375F, par6b, 0.75F);
-		renderblocks.renderStandardBlock(block, i, j, k);
+		renderBlocks.setRenderBounds(0.25F, par6a, 0.625F, 0.375F, par6b, 0.75F);
+		renderBlocks.renderStandardBlock(block, x, y, z);
 	//Level 7
-		renderblocks.setRenderBounds(0.25F, par7a, 0.25F, 0.75F, par7b, 0.75F);
-		renderblocks.renderStandardBlock(block, i, j, k);
+		renderBlocks.setRenderBounds(0.25F, par7a, 0.25F, 0.75F, par7b, 0.75F);
+		renderBlocks.renderStandardBlock(block, x, y, z);
 	//Level 8
-		renderblocks.setRenderBounds(0.1875F, par8a, 0.1875F, 0.8125F, par8b, 0.8125F);
-		renderblocks.renderStandardBlock(block, i, j, k);
+		renderBlocks.setRenderBounds(0.1875F, par8a, 0.1875F, 0.8125F, par8b, 0.8125F);
+		renderBlocks.renderStandardBlock(block, x, y, z);
 	//Level 9
-		renderblocks.setRenderBounds(0.25F, par9a, 0.25F, 0.75F, par9b, 0.75F);
-		renderblocks.renderStandardBlock(block, i, j, k);
-		renderblocks.clearOverrideBlockTexture();
+		renderBlocks.setRenderBounds(0.25F, par9a, 0.25F, 0.75F, par9b, 0.75F);
+		renderBlocks.renderStandardBlock(block, x, y, z);
+
+		renderBlocks.setRenderBounds(par13, par8a, par14, par15, par8b, par16);
+		renderBlocks.renderStandardBlock(block, x, y, z);
+
+		renderBlocks.setRenderBounds(par17, par10a, par18, par19, par10b, par20);
+		renderBlocks.renderStandardBlock(block, x, y, z);
+		renderBlocks.clearOverrideBlockTexture();
 	//Core
-		renderblocks.overrideBlockTexture = DecorativeChimneyCore.blockMantelCorner.getIcon(7, tileEntityClothColor.getColor2());
-		renderblocks.setRenderBounds(0.3115F, par6a, 0.3115F, 0.6885F, par6b, 0.6885F);
-		renderblocks.renderStandardBlock(block, i, j, k);
-		renderblocks.clearOverrideBlockTexture();
+		renderBlocks.overrideBlockTexture = block.getIcon(7, tileEntityClothColor.getColor2());
+		renderBlocks.setRenderBounds(0.3115F, par6a, 0.3115F, 0.6885F, par6b, 0.6885F);
+		renderBlocks.renderStandardBlock(block, x, y, z);
+		renderBlocks.clearOverrideBlockTexture();
 
        	block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
        	return true;
 	}
 
-    public boolean shouldSideBeRendered(IBlockAccess iblockaccess, int i, int j, int k, int l)
+    public boolean shouldSideBeRendered(IBlockAccess iblockAccess, int x, int y, int z, int l)
     {
         return true;
     }

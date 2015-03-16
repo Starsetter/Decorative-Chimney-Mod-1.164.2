@@ -3,12 +3,11 @@ package DecorativeChimney.Items;
 import java.util.List;
 
 import DecorativeChimney.DecorativeChimneyCore;
-import DecorativeChimney.Blocks.BlockChimney1;
-import DecorativeChimney.TileEntities.TileEntityChimney1;
+import DecorativeChimney.Blocks.BlockChimney3;
+import DecorativeChimney.TileEntities.TileEntityChimney3;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,24 +19,24 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
-public class ItemChimney1 extends Item
+public class ItemChimney3 extends Item
 {
 	public static Icon[] IconArray;
 	public static String[] IconNames =
 	{
-    	"BlackMarble", "yBlackMarble", "zBlackMarble", "GrayMarble",
-    	"yGrayMarble", "zGrayMarble", "WhiteMarble", "yWhiteMarble",
-    	"zWhiteMarble", "NetherClay", "Clay", "Stone",
-    	"CobbleStone", "Emerald", "Gold", "Diamond",
+		"BlackMarble", "GrayMarble", "WhiteMarble", "BlackLargeBrick",
+		"BlackSmallBrick", "StoneLargeBrick", "StoneSmallBrick", "Stone",
+		"CobbleStone", "WhiteLargeBrick", "WhiteSmallBrick", "NetherBrick",
+		"Brick", "Emerald", "Gold", "Diamond",
     	"SmoothSandStone"
 	};
 	
-	public ItemChimney1(int id)
+	public ItemChimney3(int id)
 	{
 		super(id);
 		setMaxDamage(0);
 		setHasSubtypes(true);
-		setUnlocalizedName("itemChimney1");
+		setUnlocalizedName("itemChimney3");
     	setCreativeTab(DecorativeChimneyCore.tabChimney);
 	}
 
@@ -80,7 +79,7 @@ public class ItemChimney1 extends Item
 		IconArray = new Icon[17];
 		 for(int i = 0; i < IconArray.length; i++)
 		 {
-			 ItemStack itemStack = new ItemStack(DecorativeChimneyCore.itemChimney1, 64, i);
+			 ItemStack itemStack = new ItemStack(DecorativeChimneyCore.itemChimney3, 64, i);
 
 			 IconArray[i] = iconRegister.registerIcon(DecorativeChimneyCore.modid + ":" + IconNames[itemStack.getItemDamage()]);
 		 }
@@ -111,7 +110,7 @@ public class ItemChimney1 extends Item
 	
     public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List list, boolean par4)
 	{
-		list.add("Style 1");
+		list.add("Style 3");
 	}
 	
     public boolean onItemUse(ItemStack itemStack, EntityPlayer entityPlayer, World world, int x, int y, int z, int metaData, float hitx, float hity, float hitz)
@@ -132,18 +131,18 @@ public class ItemChimney1 extends Item
         	{
         		return false;
         	}
-        	else if (!DecorativeChimneyCore.blockChimney1.canPlaceBlockAt(world, x, y, z))
+        	else if (!DecorativeChimneyCore.blockChimney3.canPlaceBlockAt(world, x, y, z))
         	{
         		return false;
         	}
         	else
         	{
-        		world.setBlock(x, y, z, DecorativeChimneyCore.blockChimney1.blockID, metaData, 2);
+        		world.setBlock(x, y, z, DecorativeChimneyCore.blockChimney3.blockID, metaData, 2);
 
         		TileEntity tileentity = world.getBlockTileEntity(x, y, z);
-        		if(tileentity != null && tileentity instanceof TileEntityChimney1)
+        		if(tileentity != null && tileentity instanceof TileEntityChimney3)
         		{
-        			((TileEntityChimney1)tileentity).setChimneyType(itemStack.getItemDamage());
+        			((TileEntityChimney3)tileentity).setChimneyType(itemStack.getItemDamage());
         		}
         		--itemStack.stackSize;
         		return true;

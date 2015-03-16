@@ -2,12 +2,8 @@ package DecorativeChimney.Items;
 
 import java.util.List;
 
-import tutorial.WiduXTutorial;
-
 import DecorativeChimney.DecorativeChimneyCore;
-import DecorativeChimney.Blocks.BlockMantelCorner;
 import DecorativeChimney.TileEntities.TileEntityColor;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -22,29 +18,29 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class ItemMantelCorner extends Item
+public class ItemMantelCenter extends Item
 {
-	public static Icon[] IconMantelCornerArray;
-	public static String[] IconMantelCornerNames =
+	public static Icon[] IconMantelCenterArray;
+	public static String[] IconMantelCenterNames =
 	{
-		"MantelCornerBG", "MantelCornerBW", "MantelCornerGB", "MantelCornerGW",
-		"MantelCornerWB", "MantelCornerWG", "MantelCornerBr", "MantelCornerS",
-		"MantelCornerCS", "MantelCornerE", "MantelCornerG", "MantelCornerD",
-		"MantelCornerOP", "MantelCornerBP", "MantelCornerSP", "MantelCornerJP"
+		"MantelCenterBG", "MantelCenterBW", "MantelCenterGB", "MantelCenterGW",
+		"MantelCenterWB", "MantelCenterWG", "Brick", "Stone",
+		"CobbleStone", "Emerald", "Gold", "Diamond",
+		"OakPlank", "BirchPlank", "SprucePlank", "JunglePlank"
 	};
 
-	public ItemMantelCorner(int ID)
+	public ItemMantelCenter(int ID)
 	{
 		super(ID);
 		setMaxDamage(0);
 		setHasSubtypes(true);
-		setUnlocalizedName("itemMantelCorner1");
+		setUnlocalizedName("itemMantelCenter1");
     	setCreativeTab(DecorativeChimneyCore.tabChimney);
 	}
 
 	public void getSubItems(int metaData, CreativeTabs creativeTabs, List list)
     {
-        for (int j = 0; j < IconMantelCornerArray.length; ++j)
+        for (int j = 0; j < IconMantelCenterArray.length; ++j)
         {
             list.add(new ItemStack(this, 1, j));
         }
@@ -58,31 +54,31 @@ public class ItemMantelCorner extends Item
     @SideOnly(Side.CLIENT)
 	public Icon getIconFromDamage(int damage) //Gets the texture
 	{
-        if (damage < 0 || damage >= IconMantelCornerArray.length)
+        if (damage < 0 || damage >= IconMantelCenterArray.length)
         {
         	damage = 0;
         }
-		return this.IconMantelCornerArray[damage];
+		return this.IconMantelCenterArray[damage];
 	}
 
 	public String getUnlocalizedName(ItemStack itemStack) //Get's the item incode name from an itemstack
 	{
         int i = itemStack.getItemDamage();
 
-        if (i < 0 || i >= IconMantelCornerNames.length)
+        if (i < 0 || i >= IconMantelCenterNames.length)
         {
             i = 0;
         }
-        return super.getUnlocalizedName() + "." + IconMantelCornerNames[i];	}
+        return super.getUnlocalizedName() + "." + IconMantelCenterNames[i];	}
 	
 	public void registerIcons(IconRegister iconRegister)
     {
-		IconMantelCornerArray = new Icon[16];
-		 for(int i = 0; i < IconMantelCornerArray.length; i++)
+		IconMantelCenterArray = new Icon[16];
+		 for(int i = 0; i < IconMantelCenterArray.length; i++)
 		 {
-			 ItemStack itemStack = new ItemStack(DecorativeChimneyCore.itemMantelCorner, 64, i);
+			 ItemStack itemStack = new ItemStack(DecorativeChimneyCore.itemMantelCenter, 64, i);
 
-			 IconMantelCornerArray[i] = iconRegister.registerIcon(DecorativeChimneyCore.modid + ":" + IconMantelCornerNames[itemStack.getItemDamage()]);
+			 IconMantelCenterArray[i] = iconRegister.registerIcon(DecorativeChimneyCore.modid + ":" + IconMantelCenterNames[itemStack.getItemDamage()]);
 		 }
     }
 
@@ -134,27 +130,28 @@ public class ItemMantelCorner extends Item
     	{
     		return false;
     	}
-    	else if (!DecorativeChimneyCore.blockMantelCorner.canPlaceBlockAt(world, x, y, z))
+    	else if (!DecorativeChimneyCore.blockMantelCenter.canPlaceBlockAt(world, x, y, z))
     	{
     		return false;
     	}
     	else
     	{
-            int i1 = 0;
+        	int i1 = MathHelper.floor_double((double)(entityPlayer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+            int i2 = 0;
 
             if(metaData == 0)
             {
-            	i1 = 0;
+            	i2 = 0;
             }
             else if(metaData == 1)
             {
-            	i1 = 1;
+            	i2 = 1;
             }
             else if (metaData != 0 || metaData != 1)
             {
-            	i1 = ((double)hity >= 0.5D) ? i1 : i1 | 1;
+            	i2 = ((double)hity >= 0.5D) ? i2 : i2 | 1;
             }
-    		world.setBlock(x, y, z, DecorativeChimneyCore.blockMantelCorner.blockID, i1, 2);
+    		world.setBlock(x, y, z, DecorativeChimneyCore.blockMantelCenter.blockID, (i2 * 4) + i1, 2);
 
     		TileEntity tileentity = world.getBlockTileEntity(x, y, z);
     		if(tileentity != null && tileentity instanceof TileEntityColor)

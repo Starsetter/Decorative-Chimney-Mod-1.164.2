@@ -67,7 +67,7 @@ public class BlockMantelCenterA extends Block
     		"Stone", "Stone", "Stone", "Stone", "OakPlank", "OakPlank", "OakPlank", "OakPlank"
 		};
 
-    @SideOnly(Side.CLIENT)
+/*    @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister iconregister)
     {
     	icons = new Icon[16];
@@ -81,7 +81,7 @@ public class BlockMantelCenterA extends Block
 
     		icons2[i] = iconregister.registerIcon(DecorativeChimneyCore.modid + ":" + blockManteCenterASecondaryNames[blockMantelCenterAStack.getItemDamage()]);
     	}
-    }
+    }*/
     
     @SideOnly(Side.CLIENT)
     public Icon getIcon(int i, int meta)
@@ -134,7 +134,7 @@ public class BlockMantelCenterA extends Block
 		return DecorativeChimneyCore.blockMantelCenterModelID;
 	}
 
-    public boolean canPlaceTorchOnTop(World world, int x, int y, int z)
+/*    public boolean canPlaceTorchOnTop(World world, int x, int y, int z)
     {
         if (world.doesBlockHaveSolidTopSurface(x, y, z))
         {
@@ -145,7 +145,7 @@ public class BlockMantelCenterA extends Block
             int id = world.getBlockId(x, y, z);
             return id == DecorativeChimneyCore.blockMantelCenterA.blockID;
         }
-    }
+    }*/
 
     public int getMobilityFlag()
     {

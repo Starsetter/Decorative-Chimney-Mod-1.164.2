@@ -72,7 +72,8 @@ public class ModelLogs extends ModelBase
 		LogF.render(f5);
 	}
 
-	public void renderModel(float f5){
+	public void renderModel(float f5)
+	{
 		LogA.render(f5);
 		LogB.render(f5);
 		LogC.render(f5);
@@ -81,11 +82,11 @@ public class ModelLogs extends ModelBase
 		LogF.render(f5);
 	}
 
-	private void setRotation(ModelRenderer model, float x, float y, float z)
+	private void setRotation(ModelRenderer modelRender, float x, float y, float z)
 	{
-		model.rotateAngleX = x;
-		model.rotateAngleY = y;
-		model.rotateAngleZ = z;
+		modelRender.rotateAngleX = x;
+		modelRender.rotateAngleY = y;
+		modelRender.rotateAngleZ = z;
 	}
 
 	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)

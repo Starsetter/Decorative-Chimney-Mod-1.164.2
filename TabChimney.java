@@ -12,7 +12,8 @@ public class TabChimney extends CreativeTabs
 	}
 
 	@Override
-	public ItemStack getIconItemStack() {
+	public ItemStack getIconItemStack()
+	{
 	    return new ItemStack(DecorativeChimneyCore.blockLogsOn);
 	}
 }

@@ -14,9 +14,9 @@ public class ItemBlockMantelCenterA extends ItemBlock
 		setUnlocalizedName("blockMantelCenterA");
 	}
 	
-	public int getMetadata(int metadata)
+	public int getMetadata(int metaData)
 	{
-		return metadata;
+		return metaData;
 	}
 
     public String getUnlocalizedName(ItemStack itemStack)

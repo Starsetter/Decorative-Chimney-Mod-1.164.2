@@ -206,48 +206,6 @@ public class InvBlock implements ISimpleBlockRenderingHandler
             renderBlocks.clearOverrideBlockTexture();
             block.setBlockBounds(0.25F, 0.0F, 0.25F, 0.75F, 1.0F, 0.75F);
         }
-        if (block instanceof BlockChimney3)
-        {
-    		renderBlocks.overrideBlockTexture = block.getIcon(modelId, metaData);
-    		renderBlocks.setRenderBounds(0.0625F, 0.6255F, 0.0625F, 0.9375F, 0.6875F, 0.1875F);
-            renderBlockItem(renderBlocks, block, metaData);
-//2
-            renderBlocks.setRenderBounds(0.0625F, 0.625F, 0.1875F, 0.1875F, 0.6875F, 0.8125F);
-            renderBlockItem(renderBlocks, block, metaData);
-//3
-            renderBlocks.setRenderBounds(0.0625F, 0.625F, 0.8125F, 0.9375F, 0.6875F, 0.9375F);
-            renderBlockItem(renderBlocks, block, metaData);
-//4
-            renderBlocks.setRenderBounds(0.8125F, 0.625F, 0.1875F, 0.9375F, 0.6875F, 0.8125F);
-            renderBlockItem(renderBlocks, block, metaData);
-//5
-            renderBlocks.setRenderBounds(0.0F, 0.5625F, 0.0F, 1.0F, 0.625F, 0.1875F);
-            renderBlockItem(renderBlocks, block, metaData);
-//6
-            renderBlocks.setRenderBounds(0.0F, 0.5625F, 0.1875F, 0.1875F, 0.625F, 0.8125F);
-            renderBlockItem(renderBlocks, block, metaData);
-//7
-            renderBlocks.setRenderBounds(0.0F, 0.5625F, 0.8125F, 1.0F, 0.625F, 1.0F);
-            renderBlockItem(renderBlocks, block, metaData);
-//8
-            renderBlocks.setRenderBounds(0.8125F, 0.5625F, 0.1875F, 1.0F, 0.625F, 0.8125F);
-            renderBlockItem(renderBlocks, block, metaData);
-//9
-            renderBlocks.setRenderBounds(-0.0625F, 0.375F, -0.0625F, 1.0625F, 0.5625F, 0.1875F);
-            renderBlockItem(renderBlocks, block, metaData);
-//10
-            renderBlocks.setRenderBounds(-0.0625F, 0.375F, 0.1875F, 0.1875F, 0.5625F, 0.8125F);
-            renderBlockItem(renderBlocks, block, metaData);
-//11
-            renderBlocks.setRenderBounds(-0.0625F, 0.375F, 0.8125F, 1.0625F, 0.5625F, 1.0625F);
-            renderBlockItem(renderBlocks, block, metaData);
-//12
-            renderBlocks.setRenderBounds(0.8125F, 0.375F, 0.1875F, 1.0625F, 0.5625F, 0.8125F);
-            renderBlockItem(renderBlocks, block, metaData);
-
-            renderBlocks.clearOverrideBlockTexture();
-            block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-        }
     }
 
     public static void renderBlockItem(RenderBlocks renderBlocks, Block block, int i)

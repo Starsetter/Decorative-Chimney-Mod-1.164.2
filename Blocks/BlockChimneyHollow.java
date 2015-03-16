@@ -50,8 +50,10 @@ public class BlockChimneyHollow extends Block
 
     private static final String[] blockChimneyBricksNames =
 		{ 
-			"BlackMarble", "GrayMarble", "WhiteMarble", "BlackLargeBrick", "BlackSmallBrick", "StoneLargeBrick", "StoneSmallBrick", "Stone",
-			"CobbleStone", "WhiteLargeBrick", "WhiteSmallBrick", "NetherBrick", "Brick", "Emerald", "Gold", "Diamond"
+			"BlackMarble", "GrayMarble", "WhiteMarble", "BlackLargeBrick",
+			"BlackSmallBrick", "StoneLargeBrick", "StoneSmallBrick", "Stone",
+			"CobbleStone", "WhiteLargeBrick", "WhiteSmallBrick", "NetherBrick",
+			"Brick", "Emerald", "Gold", "Diamond"
 		};
 
     @SideOnly(Side.CLIENT)

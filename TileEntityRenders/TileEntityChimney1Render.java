@@ -30,7 +30,7 @@ public class TileEntityChimney1Render extends TileEntitySpecialRenderer
         this.renderModelAt((float)d, (float)d1, (float)d2, tileEntityChimney1.getBlockMetadata() & 7, (float)(tileEntityChimney1.getChimneyRotation() * 360) / 4.0F, tileEntityChimney1.getChimneyType());
 	}
 
-	public void renderModelAt(float d, float d1, float d2, int meta, float rotation, int damage)
+	public void renderModelAt(float d, float d1, float d2, int metaData, float rotation, int damage)
 	{
 		switch (damage) // the good part. get's your block multiple textures
 		{

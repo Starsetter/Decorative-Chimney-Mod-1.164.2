@@ -17,9 +17,13 @@ public class TileEntityColor extends TileEntity
 		color2 = 0;
 	}
 
-	public void setColor(int color)
+	public void setColor1(int color)
 	{
 		this.color1 = color;
+	}
+
+	public void setColor2(int color)
+	{
 		this.color2 = color;
 	}
 

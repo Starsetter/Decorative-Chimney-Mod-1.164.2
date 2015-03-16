@@ -14,9 +14,9 @@ public class ItemBlockChimneyHollow extends ItemBlock
 		setUnlocalizedName("blockChimneyHollowBricks");
 	}
 	
-	public int getMetadata(int metadata)
+	public int getMetadata(int metaData)
 	{
-		return metadata;
+		return metaData;
 	}
 
     public String getUnlocalizedName(ItemStack itemStack)
