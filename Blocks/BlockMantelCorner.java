@@ -52,7 +52,7 @@ public class BlockMantelCorner extends BlockContainer
     @SideOnly(Side.CLIENT)
     private static Icon[] icons2;
 
-    private static final String[] blockMantelSideNames =
+    private static final String[] blockMantelCornerNames =
 		{ 
     		"BlackMarble", "BlackMarble", "GrayMarble", "GrayMarble",
     		"WhiteMarble", "WhiteMarble", "Brick", "Stone",
@@ -60,7 +60,7 @@ public class BlockMantelCorner extends BlockContainer
     		"OakPlank", "BirchPlank", "SprucePlank", "JunglePlank"
 		};
 
-    private static final String[] blockManteSideSecondaryNames =
+    private static final String[] blockManteCornerSecondaryNames =
 		{ 
     		"GrayMarble", "WhiteMarble", "BlackMarble", "WhiteMarble",
     		"BlackMarble", "GrayMarble", "Brick", "Stone",
@@ -74,31 +74,39 @@ public class BlockMantelCorner extends BlockContainer
     	icons = new Icon[16];
     	icons2 = new Icon[16];
     	
-    	for(int i = 0; i < blockMantelSideNames.length; i++)
+    	for(int i = 0; i < blockMantelCornerNames.length; i++)
     	{
     		ItemStack blockMantelSideStack = new ItemStack(DecorativeChimneyCore.blockMantelSide, 64, i);
 
-    		icons[i] = iconRegister.registerIcon(DecorativeChimneyCore.modid + ":" + blockMantelSideNames[blockMantelSideStack.getItemDamage()]);
+    		icons[i] = iconRegister.registerIcon(DecorativeChimneyCore.modid + ":" + blockMantelCornerNames[blockMantelSideStack.getItemDamage()]);
 
-    		icons2[i] = iconRegister.registerIcon(DecorativeChimneyCore.modid + ":" + blockManteSideSecondaryNames[blockMantelSideStack.getItemDamage()]);
+    		icons2[i] = iconRegister.registerIcon(DecorativeChimneyCore.modid + ":" + blockManteCornerSecondaryNames[blockMantelSideStack.getItemDamage()]);
     	}
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public Icon getBlockTexture(IBlockAccess iblockAccess, int x, int y, int z, int i)
+    {
+        TileEntityColor tileEntityClothColor = (TileEntityColor)iblockAccess.getBlockTileEntity(x, y, z);
+
+    	if(i == 6)
+    	{
+    		return icons[tileEntityClothColor.getColor1()];
+    
+    	}
+    	if(i == 7)
+    	{
+    		return icons2[tileEntityClothColor.getColor2()];
+    	}
+    	return icons[tileEntityClothColor.getColor1()];
     }
     
     @SideOnly(Side.CLIENT)
     public Icon getIcon(int i, int metaData)
     {
-    	if(i == 6)
-    	{
-    		return icons[metaData];
-    
-    	}
-    	if(i == 7)
-    	{
-    		return icons2[metaData];
-    	}
     	return icons[metaData];
     }
-    
+
     public void onBlockHarvested(World world, int x, int y, int z, int metaData, EntityPlayer entityPlayer)
     {
         if (entityPlayer.capabilities.isCreativeMode)
@@ -329,9 +337,9 @@ public class BlockMantelCorner extends BlockContainer
         float par10a = 0.0F;
         float par10b = 0.6875F;
         
-    	for(int l = 0; l < blockMantelSideNames.length; l = l + 2)
+    	for(int l = 0; l < blockMantelCornerNames.length; l = l + 2)
     	{
-        	for(int m = 1; m < blockMantelSideNames.length; m = m + 2)
+        	for(int m = 1; m < blockMantelCornerNames.length; m = m + 2)
     		  {
         		if(iblockAccess.getBlockMetadata(x, y, z) == l || iblockAccess.getBlockMetadata(x, y, z) == m)
         		{
@@ -491,7 +499,6 @@ public class BlockMantelCorner extends BlockContainer
 		        }
         	}
         }
-		renderBlocks.overrideBlockTexture = block.getIcon(6, tileEntityClothColor.getColor1());
 	//Top
 		renderBlocks.setRenderBounds(0.0F, par1a, 0.0F, 1.0F, par1b, 1.0F);
 		renderBlocks.renderStandardBlock(block, x, y, z);
@@ -537,9 +544,8 @@ public class BlockMantelCorner extends BlockContainer
 
 		renderBlocks.setRenderBounds(par17, par10a, par18, par19, par10b, par20);
 		renderBlocks.renderStandardBlock(block, x, y, z);
-		renderBlocks.clearOverrideBlockTexture();
 	//Core
-		renderBlocks.overrideBlockTexture = block.getIcon(7, tileEntityClothColor.getColor2());
+		renderBlocks.overrideBlockTexture = block.getBlockTexture(iblockAccess, x, y, z, 7);
 		renderBlocks.setRenderBounds(0.3115F, par6a, 0.3115F, 0.6885F, par6b, 0.6885F);
 		renderBlocks.renderStandardBlock(block, x, y, z);
 		renderBlocks.clearOverrideBlockTexture();

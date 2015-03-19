@@ -92,7 +92,7 @@ public class BlockLogsOn extends BlockContainer
 
     public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int l, float m, float n, float p)
     {
-    	if (entityplayer.getCurrentEquippedItem() == null)
+    	if (entityplayer.getCurrentEquippedItem() == null || entityplayer.getCurrentEquippedItem().itemID == Item.bucketWater.itemID)
     	{
     		Random q = new Random();
     		world.playSoundEffect((double)i + 0.5D, (double)j + 0.5D, (double)k + 0.5D, "random.fizz", 1.0F, q.nextFloat() * 0.4F + 0.8F);
@@ -101,12 +101,25 @@ public class BlockLogsOn extends BlockContainer
     		int r = world.getBlockMetadata(i, j, k);
             world.setBlock(i, j, k, DecorativeChimneyCore.blockLogsOff.blockID);
             world.setBlockMetadataWithNotify(i, j, k, r, 2);
+            if (entityplayer.getCurrentEquippedItem() != null && entityplayer.getCurrentEquippedItem().itemID == Item.bucketWater.itemID)
+            {
+            	onUse(entityplayer.getCurrentEquippedItem(), world, entityplayer);
+            }
     		return  true;
     	}
     	else
     	{
     		return false;
     	}
+    }
+
+    public ItemStack onUse(ItemStack itemStack, World world, EntityPlayer entityPlayer)
+    {
+        if (--itemStack.stackSize <= 0)
+        {
+            return new ItemStack(Item.bucketEmpty);
+        }
+        return itemStack;
     }
 
 	public boolean isOpaqueCube()

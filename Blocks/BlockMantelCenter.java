@@ -82,20 +82,28 @@ public class BlockMantelCenter extends BlockContainer
     }
     
     @SideOnly(Side.CLIENT)
-    public Icon getIcon(int i, int metaData)
+    public Icon getBlockTexture(IBlockAccess iblockAccess, int x, int y, int z, int i)
     {
+        TileEntityColor tileEntityClothColor = (TileEntityColor)iblockAccess.getBlockTileEntity(x, y, z);
+
     	if(i == 6)
     	{
-    		return icons[metaData];
+    		return icons[tileEntityClothColor.getColor1()];
     
     	}
     	if(i == 7)
     	{
-    		return icons2[metaData];
+    		return icons2[tileEntityClothColor.getColor2()];
     	}
-    	return icons[metaData];
+    	return icons[tileEntityClothColor.getColor1()];
     }
     
+    @SideOnly(Side.CLIENT)
+    public Icon getIcon(int i, int metaData)
+    {
+    	return icons[metaData];
+    }
+
     public void onBlockHarvested(World world, int x, int y, int z, int metaData, EntityPlayer entityPlayer)
     {
         if (entityPlayer.capabilities.isCreativeMode)
@@ -195,46 +203,38 @@ public class BlockMantelCenter extends BlockContainer
 		return 0;    
     }
     
-    public void setBlockBoundsBasedOnState(IBlockAccess iblockAccess, int i, int j, int k)
+    public void setBlockBoundsBasedOnState(IBlockAccess iblockAccess, int x, int y, int z)
     {
-    	boolean var5 = BlockMantelCorner.canConnectTo(iblockAccess, i - 1, j, k);
-        boolean var6 = BlockMantelCorner.canConnectTo(iblockAccess, i + 1, j, k);
-        boolean var7 = BlockMantelCorner.canConnectTo(iblockAccess, i, j, k - 1);
-        boolean var8 = BlockMantelCorner.canConnectTo(iblockAccess, i, j, k + 1);
-        float var9 = 0.3125F;
-        float var10 = 0.6875F;
+        boolean var5 = BlockMantelCorner.canConnectTo(iblockAccess, x, y, z - 1);
+        boolean var6 = BlockMantelCorner.canConnectTo(iblockAccess, x, y, z + 1);
+        boolean var7 = BlockMantelCorner.canConnectTo(iblockAccess, x - 1, y, z);
+        boolean var8 = BlockMantelCorner.canConnectTo(iblockAccess, x + 1, y, z);
+        float var9 = 0.25F;
+        float var10 = 0.75F;
+        float var11 = 0.25F;
+        float var12 = 0.75F;
 
-    	for(int l = 0; l < 16; l = l + 2)
-    	{
-        	for(int m = 1; m < 16; m = m + 2)
-        	{
-        		if(iblockAccess.getBlockMetadata(i, j, k) == l)
-        		{
-        			if(var7)
-        			{
-        				var9 = 0.0F;
-        			}
-
-        			if(var8)
-        			{
-        				var10 = 1.0F;
-        			}
-        		}
-        		else if(iblockAccess.getBlockMetadata(i, j, k) == m)
-        		{
-        			if(var5)
-        			{
-        				var9 = 0.0F;
-        			}
-
-        			if(var6)
-        			{
-        				var10 = 1.0F;
-        			}
-        		}
-    			setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-        	}
+        if (var5)
+        {
+            var11 = 0.0F;
         }
+
+        if (var6)
+        {
+            var12 = 1.0F;
+        }
+
+        if (var7)
+        {
+            var9 = 0.0F;
+        }
+
+        if (var8)
+        {
+            var10 = 1.0F;
+        }
+
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
     public void addCollidingBlockToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity)
@@ -326,9 +326,9 @@ public class BlockMantelCenter extends BlockContainer
         float par9a = 0.0F;
         float par9b = 0.125F;
 
-        for(int l = 0; l < 16; l = l + 2)
+        for(int l = 0; l < blockMantelCenterNames.length; l = l + 2)
         {
-        	for(int m = 1; m < 16; m = m + 2)
+        	for(int m = 1; m < blockMantelCenterNames.length; m = m + 2)
         	{
         		if(iblockAccess.getBlockMetadata(x, y, z) == l || iblockAccess.getBlockMetadata(x, y, z) == m)
         		{
@@ -449,49 +449,47 @@ public class BlockMantelCenter extends BlockContainer
         					}
         				}
         			}
-        			renderBlocks.overrideBlockTexture = block.getIcon(6, tileEntityClothColor.getColor1());
-        			//Top
-        			renderBlocks.setRenderBounds(0.0F, par1a, 0.0F, 1.0F, par1b, 1.0F);
-        			renderBlocks.renderStandardBlock(block, x, y, z);
-        			//Level 1
-        			renderBlocks.setRenderBounds(par1, par2a, par2, par3, par2b, par4);
-        			renderBlocks.renderStandardBlock(block, x, y, z);
-        			//Level 2
-        			renderBlocks.setRenderBounds(par5, par3a, par6, par7, par3b, par8);
-        			renderBlocks.renderStandardBlock(block, x, y, z);
-        			//Level 3
-        			renderBlocks.setRenderBounds(par9, par4a, par10, par11, par4b, par12);
-        			renderBlocks.renderStandardBlock(block, x, y, z);
-        			//Level 4
-        			renderBlocks.setRenderBounds(par13, par5a, par14, par15, par5b, par16);
-        			renderBlocks.renderStandardBlock(block, x, y, z);
-        			//Level 5
-        			//Side 1
-        			renderBlocks.setRenderBounds(par17, par6a, par18, par19, par6b, par20);
-        			renderBlocks.renderStandardBlock(block, x, y, z);
-        			//Side 2
-        			renderBlocks.setRenderBounds(par21, par6a, par22, par23, par6b, par24);
-        			renderBlocks.renderStandardBlock(block, x, y, z);
-        			//Level 6
-        			renderBlocks.setRenderBounds(par13, par7a, par14, par15, par7b, par16);
-        			renderBlocks.renderStandardBlock(block, x, y, z);
-        			//Level 7
-        			renderBlocks.setRenderBounds(par25, par8a, par26, par27, par8b, par28);
-        			renderBlocks.renderStandardBlock(block, x, y, z);
-        			//Level 8
-        			renderBlocks.setRenderBounds(par13, par9a, par14, par15, par9b, par16);
-        			renderBlocks.renderStandardBlock(block, x, y, z);
-        			renderBlocks.clearOverrideBlockTexture();	
-        			//Core
-        			renderBlocks.overrideBlockTexture = block.getIcon(7, tileEntityClothColor.getColor2());
-        			renderBlocks.setRenderBounds(par29, par6a, par30, par31, par6b, par32);
-        			renderBlocks.renderStandardBlock(block, x, y, z);
-        			renderBlocks.clearOverrideBlockTexture();	
         		}
         	}
         }
-        renderBlocks.clearOverrideBlockTexture();
-        block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+		//Top
+		renderBlocks.setRenderBounds(0.0F, par1a, 0.0F, 1.0F, par1b, 1.0F);
+		renderBlocks.renderStandardBlock(block, x, y, z);
+		//Level 1
+		renderBlocks.setRenderBounds(par1, par2a, par2, par3, par2b, par4);
+		renderBlocks.renderStandardBlock(block, x, y, z);
+		//Level 2
+		renderBlocks.setRenderBounds(par5, par3a, par6, par7, par3b, par8);
+		renderBlocks.renderStandardBlock(block, x, y, z);
+		//Level 3
+		renderBlocks.setRenderBounds(par9, par4a, par10, par11, par4b, par12);
+		renderBlocks.renderStandardBlock(block, x, y, z);
+		//Level 4
+		renderBlocks.setRenderBounds(par13, par5a, par14, par15, par5b, par16);
+		renderBlocks.renderStandardBlock(block, x, y, z);
+		//Level 5
+		//Side 1
+		renderBlocks.setRenderBounds(par17, par6a, par18, par19, par6b, par20);
+		renderBlocks.renderStandardBlock(block, x, y, z);
+		//Side 2
+		renderBlocks.setRenderBounds(par21, par6a, par22, par23, par6b, par24);
+		renderBlocks.renderStandardBlock(block, x, y, z);
+		//Level 6
+		renderBlocks.setRenderBounds(par13, par7a, par14, par15, par7b, par16);
+		renderBlocks.renderStandardBlock(block, x, y, z);
+		//Level 7
+		renderBlocks.setRenderBounds(par25, par8a, par26, par27, par8b, par28);
+		renderBlocks.renderStandardBlock(block, x, y, z);
+		//Level 8
+		renderBlocks.setRenderBounds(par13, par9a, par14, par15, par9b, par16);
+		renderBlocks.renderStandardBlock(block, x, y, z);
+		//Core
+		renderBlocks.overrideBlockTexture = block.getBlockTexture(iblockAccess, x, y, z, 7);
+		renderBlocks.setRenderBounds(par29, par6a, par30, par31, par6b, par32);
+		renderBlocks.renderStandardBlock(block, x, y, z);
+		renderBlocks.clearOverrideBlockTexture();	
+
+		block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
         return true;
     }
 
