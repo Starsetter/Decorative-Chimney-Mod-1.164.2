@@ -47,12 +47,12 @@ public class BlockLogsOff extends BlockContainer
 	}
 
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister iconregister)
+    public void registerIcons(IconRegister iconRegister)
     {
-    	blockIcon = iconregister.registerIcon("DecorativeChimney:Logs");
+    	blockIcon = iconRegister.registerIcon("DecorativeChimney:Logs");
     }
 
-	public int idDropped(int par1, Random par2Random, int par3)
+	public int idDropped(int l, Random random, int m)
 	{
 		return blockID;
 	}
@@ -62,15 +62,16 @@ public class BlockLogsOff extends BlockContainer
 		return 1;
 	}
 	
-    public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int l, float m, float n, float p)
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int l, float i, float j, float k)
     {
-        if (entityplayer.getCurrentEquippedItem() != null && entityplayer.getCurrentEquippedItem().itemID == Item.flintAndSteel.itemID)
+        ItemStack itemStack = entityPlayer.getCurrentEquippedItem();
+        if(itemStack != null && itemStack.itemID == Item.flintAndSteel.itemID)
         {
-            int q = world.getBlockMetadata(i, j, k);
-            world.playSoundEffect((double)i + 0.5D, (double)j + 0.5D, (double)k + 0.5D, "fire.ignite", 1.0F, this.random.nextFloat() * 0.4F + 0.8F);
-            entityplayer.getCurrentEquippedItem().damageItem(1, entityplayer);
-            world.setBlock(i, j, k, DecorativeChimneyCore.blockLogsOn.blockID);
-            world.setBlockMetadataWithNotify(i, j, k, q, 2);
+            int q = world.getBlockMetadata(x, y, z);
+            world.playSoundEffect((double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D, "fire.ignite", 1.0F, this.random.nextFloat() * 0.4F + 0.8F);
+            itemStack.damageItem(1, entityPlayer);
+            world.setBlock(x, y, z, DecorativeChimneyCore.blockLogsOn.blockID);
+            world.setBlockMetadataWithNotify(x, y, z, q, 2);
             return true;
         }
         else
@@ -94,10 +95,10 @@ public class BlockLogsOff extends BlockContainer
 		return -1;
 	}
 
-	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLivingBase entityliving, ItemStack itemstack)
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLivingBase, ItemStack itemStack)
 	{
-		int l = MathHelper.floor_double((double)((entityliving.rotationYaw * 4F) / 360F) + 0.5D) & 3;
-		world.setBlockMetadataWithNotify(i, j, k, l, 2);
+		int l = MathHelper.floor_double((double)((entityLivingBase.rotationYaw * 4F) / 360F) + 0.5D) & 3;
+		world.setBlockMetadataWithNotify(x, y, z, l, 2);
 	}
 	
 	public TileEntity createNewTileEntity(World world)
@@ -107,14 +108,14 @@ public class BlockLogsOff extends BlockContainer
 
 	private Class anEntityClass;
 	
-    public boolean getBlocksMovement(IBlockAccess iblockaccess, int i, int j, int k)
+    public boolean getBlocksMovement(IBlockAccess iblockAccess, int x, int y, int z)
     {
         return false;
     }
     
-    public void addCollidingBlockToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity)
+    public void addCollidingBlockToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity)
     {
-        this.setBlockBoundsBasedOnState(par1World, par2, par3, par4);
-        super.addCollisionBoxesToList(par1World, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
+        this.setBlockBoundsBasedOnState(world, x, y, z);
+        super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
     }
 }

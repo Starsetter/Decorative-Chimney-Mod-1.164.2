@@ -114,21 +114,19 @@ public class ItemChimney1 extends Item
 		list.add("Style 1");
 	}
 	
-    public boolean onItemUse(ItemStack itemStack, EntityPlayer entityPlayer, World world, int x, int y, int z, int metaData, float hitx, float hity, float hitz)
+    public boolean onItemUse(ItemStack itemStack, EntityPlayer entityPlayer, World world, int x, int y, int z, int side, float hitx, float hity, float hitz)
     {
-        //par7 = side
-    	
-    	if (metaData != 1)
+    	if (side != 1)
         {
             return false;
         }
         else
         {
-        	if (metaData == 1)
+        	if (side == 1)
         	{
         		++y;
         	}
-        	if (!entityPlayer.canPlayerEdit(x, y, z, metaData, itemStack))
+        	if (!entityPlayer.canPlayerEdit(x, y, z, side, itemStack))
         	{
         		return false;
         	}
@@ -138,7 +136,7 @@ public class ItemChimney1 extends Item
         	}
         	else
         	{
-        		world.setBlock(x, y, z, DecorativeChimneyCore.blockChimney1.blockID, metaData, 2);
+        		world.setBlock(x, y, z, DecorativeChimneyCore.blockChimney1.blockID, side, 2);
 
         		TileEntity tileentity = world.getBlockTileEntity(x, y, z);
         		if(tileentity != null && tileentity instanceof TileEntityChimney1)
